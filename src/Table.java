@@ -8,12 +8,48 @@ public class Table {
     private int nbPlaces;
     private int nbClients;
     private Employe server;
-    private boolean taken;
+
     private boolean served;
+    private int idTable;
 
 
     private ArrayList<Dishes> dishesList = new ArrayList<>();
     private ArrayList<Drinks> drinkList = new ArrayList<>();
+
+    public Table(int nbPlaces, int idTable){
+        this.nbPlaces = nbPlaces;
+        this.idTable = idTable;
+        this.nbClients = 0;
+        this.served = false;
+    }
+
+    public void addClients(int nbClients){
+        this.nbClients = nbClients;
+    }
+
+    public void clientsLeave(){
+        this.nbClients =0;
+    }
+
+    public void addDishes(Dishes newDishes){
+        this.dishesList.add(newDishes);
+        this.served = false;
+    }
+
+    public void addDrink(Drinks newDrink){
+        this.served = false;
+        this.drinkList.add(newDrink);
+    }
+
+    public void serveClients(){
+        this.served = true;
+        for(int i = 0; i < dishesList.size(); i++){
+            this.dishesList.get(i).serveDishes();
+            this.drinkList.get(i).serveDrink();
+        }
+    }
+
+
 
 
 }
