@@ -18,4 +18,17 @@ public class Dishes {
     public void serveDishes(){
         this.served = true;
     }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isServed() {
+        return served;
+    }
 }
