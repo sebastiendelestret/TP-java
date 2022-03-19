@@ -49,7 +49,23 @@ public class Table {
         }
     }
 
+    public int getNbPlaces() {
+        return nbPlaces;
+    }
 
+    public int getNbClients() {
+        return nbClients;
+    }
 
+    public Employe getServer() {
+        return server;
+    }
 
+    public boolean isServed() {
+        return served;
+    }
+
+    public int getIdTable() {
+        return idTable;
+    }
 }
