@@ -1,15 +1,11 @@
-import javax.tools.Tool;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
+public class Main implements Tools{
 
-    private static Tools tools;
     private static ArrayList<Table>listTable = new ArrayList<>();
 
     public static void main(String[] args){
-        tools =new Tools();
 
         createTable(10);
         displayTables();
@@ -27,7 +23,7 @@ public class Main {
 
     private static void createTable(int numTable){
         for(int i = 0; i<numTable; i++){
-            listTable.add(new Table(tools.getRandInt(2,8), i+1));
+            listTable.add(new Table(Tools.getRandInt(2,8), i+1));
         }
     }
 
