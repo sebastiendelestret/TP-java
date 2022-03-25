@@ -1,7 +1,7 @@
 package Objects;
 
-import Card.Dishes;
-import Card.Drinks;
+import Datas.DishesDatas;
+import Datas.DrinksDatas;
 
 import java.util.ArrayList;
 
@@ -15,8 +15,8 @@ public class Table {
     private int idTable;
 
 
-    private ArrayList<Dishes> dishesList = new ArrayList<>();
-    private ArrayList<Drinks> drinkList = new ArrayList<>();
+    private ArrayList<DishesDatas> dishesList = new ArrayList<>();
+    private ArrayList<DrinksDatas> drinkList = new ArrayList<>();
 
     public Table(int nbPlaces, int idTable){
         this.nbPlaces = nbPlaces;
@@ -33,22 +33,18 @@ public class Table {
         this.nbClients =0;
     }
 
-    public void addDishes(Dishes newDishes){
+    public void addDishes(DishesDatas newDishes){
         this.dishesList.add(newDishes);
         this.served = false;
     }
 
-    public void addDrink(Drinks newDrink){
+    public void addDrink(DrinksDatas newDrink){
         this.served = false;
         this.drinkList.add(newDrink);
     }
 
     public void serveClients(){
         this.served = true;
-        for(int i = 0; i < dishesList.size(); i++){
-            this.dishesList.get(i).serveDishes();
-            this.drinkList.get(i).serveDrink();
-        }
     }
 
     public int getNbPlaces() {        return nbPlaces;
@@ -70,4 +66,11 @@ public class Table {
         return idTable;
     }
 
+    public ArrayList<DishesDatas> getDishesList() {
+        return dishesList;
+    }
+
+    public ArrayList<DrinksDatas> getDrinkList() {
+        return drinkList;
+    }
 }
