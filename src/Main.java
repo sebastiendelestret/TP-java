@@ -11,15 +11,7 @@ public class Main{
 
         screenMenu.update();
 
-
-
     }
-
-
-
-
-
-
 
 
 }

@@ -51,8 +51,7 @@ public class Table {
         }
     }
 
-    public int getNbPlaces() {
-        return nbPlaces;
+    public int getNbPlaces() {        return nbPlaces;
     }
 
     public int getNbClients() {
@@ -70,4 +69,5 @@ public class Table {
     public int getIdTable() {
         return idTable;
     }
+
 }
