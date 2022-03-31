@@ -2,17 +2,18 @@ package Screens;
 
 import Datas.DishesDatas;
 import Datas.DrinksDatas;
+import Objects.Employe;
 import Objects.Table;
 import Objects.Tools;
 
 import javax.tools.Tool;
 import java.util.Scanner;
 
+import static Objects.Util.listEmploye;
 import static Objects.Util.listTable;
 
 
 public class Monitoring implements Tools {
-
     public Monitoring(){
 
     }
@@ -42,13 +43,45 @@ public class Monitoring implements Tools {
                 case 2:
                     break;
                 case 3:
+                    addEmploye();
+                    displayEmploye();
                     break;
                 case 4:
+                    displayEmploye();
+                    deleteEmploye();
+                    displayEmploye();
                     break;
                 default:
                     break;
 
             }
         }while (choice != 0);
+    }
+
+    public void addEmploye() {
+        System.out.println("Nom :");
+        Scanner scanner = new Scanner(System.in);
+        String choice = scanner.next();
+        System.out.println("Prénom :");
+        Scanner scanner2 = new Scanner(System.in);
+        String choice2 = scanner2.next();
+        System.out.println("Poste :");
+        Scanner scanner3 = new Scanner(System.in);
+        String choice3 = scanner3.next();
+        listEmploye.add(new Employe(choice,choice2,choice3));
+    }
+
+    public void deleteEmploye() {
+        System.out.println("Numero :");
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        listEmploye.remove(choice);
+    }
+
+    public void displayEmploye() {
+        System.out.println("=====Employés=====");
+        for(int i = 0; i < listEmploye.size(); i++) {
+            System.out.println(i+". "+listEmploye.get(i).name+ " "+listEmploye.get(i).firstname+" "+listEmploye.get(i).post);
+        }
     }
 }
