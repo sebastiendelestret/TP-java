@@ -10,6 +10,7 @@ public class Principal implements Tools {
     private Commands commands = new Commands();
     private Kitchen kitchen = new Kitchen();
     private Bar bar = new Bar();
+    private Monitoring monitoring = new Monitoring();
 
     public Principal(){
         this.createTables(8);
@@ -31,9 +32,12 @@ public class Principal implements Tools {
                 case 3:
                     bar.update();
                     break;
+                case 4:
+                    monitoring.update();
+                    break;
 
                 default:
-                    System.out.println("Screen doesn't exist");
+                    System.out.println("Il n'y a pas d'écran");
                     break;
             }
         }while (screenChoice!=0);
