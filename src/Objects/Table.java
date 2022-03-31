@@ -18,6 +18,9 @@ public class Table {
     private ArrayList<DishesDatas> dishesList = new ArrayList<>();
     private ArrayList<DrinksDatas> drinkList = new ArrayList<>();
 
+    private ArrayList<DishesDatas> servedDishesList = new ArrayList<>();
+    private ArrayList<DrinksDatas> servedDrinksList = new ArrayList<>();
+
     public Table(int nbPlaces, int idTable){
         this.nbPlaces = nbPlaces;
         this.idTable = idTable;
@@ -44,7 +47,13 @@ public class Table {
     }
 
     public void serveClients(){
-        this.served = true;
+        for(int i =0; i < dishesList.size(); i++){
+            servedDishesList.add(dishesList.get(i));
+        }
+        for(int i =0; i < drinkList.size(); i++){
+            servedDrinksList.add(drinkList.get(i));
+        }
+        dishesList.clear(); drinkList.clear();
     }
 
     public int getNbPlaces() { return nbPlaces; }
@@ -71,5 +80,13 @@ public class Table {
 
     public ArrayList<DrinksDatas> getDrinkList() {
         return drinkList;
+    }
+
+    public ArrayList<DishesDatas> getServedDishesList() {
+        return servedDishesList;
+    }
+
+    public ArrayList<DrinksDatas> getServedDrinksList() {
+        return servedDrinksList;
     }
 }

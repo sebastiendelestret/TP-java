@@ -59,8 +59,10 @@ public class Commands implements Tools {
                     takeDishes(1);
                     break;
                 case 3:
+                    listTable.get(choosenTable).serveClients();
                     break;
                 case 4:
+                    Tools.printNote(choosenTable);
                     break;
                 default:
                     break;

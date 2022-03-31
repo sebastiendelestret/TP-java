@@ -10,4 +10,8 @@ public enum DrinksDatas {
     private int price;
 
     private DrinksDatas(int price) { this.price = price; }
+
+    public int getPrice() {
+        return price;
+    }
 }
