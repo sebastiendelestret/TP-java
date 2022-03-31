@@ -47,8 +47,7 @@ public class Table {
         this.served = true;
     }
 
-    public int getNbPlaces() {        return nbPlaces;
-    }
+    public int getNbPlaces() { return nbPlaces; }
 
     public int getNbClients() {
         return nbClients;

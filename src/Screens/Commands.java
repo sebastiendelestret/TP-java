@@ -1,5 +1,6 @@
 package Screens;
 
+import Datas.DishesDatas;
 import Datas.DrinksDatas;
 import Objects.Table;
 import Objects.Tools;
@@ -22,7 +23,7 @@ public class Commands implements Tools {
         System.out.println("Ecran prise de commande");
         chooseTable();
 
-        System.out.println(choosenTable);
+        System.out.println((choosenTable+1));
         takeCommand();
 
 
@@ -34,25 +35,32 @@ public class Commands implements Tools {
             Tools.displayTables();
 
             Scanner scanner = new Scanner(System.in);
-            choice = scanner.nextInt() - 1;
+            choice = scanner.nextInt();
         }while (choice<=0 || choice >= listTable.size());
-        choosenTable = choice;
+        choosenTable = choice -1 ;
     }
 
     public void takeCommand(){
         int choice;
         do {
+            System.out.println("0-Retour");
             System.out.println("1-Choisir repas");
             System.out.println("2-Choisir boissons");
+            System.out.println("3-Servir table");
+            System.out.println("4-Imprimer note");
             Scanner scanner = new Scanner(System.in);
             choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    takeDishes();
+                    takeDishes(0);
                     break;
                 case 2:
-                    takeDrinks();
+                    takeDishes(1);
+                    break;
+                case 3:
+                    break;
+                case 4:
                     break;
                 default:
                     break;
@@ -61,19 +69,36 @@ public class Commands implements Tools {
         }while (choice != 0);
     }
 
-    public void takeDishes(){
+    public void takeDishes(int dishesOrDrinks){
 
-        Tools.displayTableDishes(choosenTable);
-        Tools.displayDishesList();
+        DishesDatas tableDishes[] =DishesDatas.values();
+        DrinksDatas tableDrinks[]= DrinksDatas.values();
+        int choice;
+        do {
 
 
+            Tools.displayTableDishes(choosenTable);
+            Tools.displayTableDrinks(choosenTable);
+            System.out.println("0-Retour");
+            if(dishesOrDrinks == 0)Tools.displayDishesList();
+            else Tools.displayDrinksList();
 
+            Scanner scanner = new Scanner(System.in);
+            choice = scanner.nextInt() - 1;
 
+            if(0<=choice && choice< tableDishes.length && dishesOrDrinks == 0){
+                listTable.get(choosenTable).addDishes(tableDishes[choice]);
+                System.out.println(tableDishes[choice].toString() + " ajouté");
+            }
+            else if(0<=choice && choice< tableDishes.length){
+                listTable.get(choosenTable).addDrink(tableDrinks[choice]);
+                System.out.println(tableDrinks[choice].toString() + " ajouté");
+            }
+
+        }while (choice != -1);
     }
 
-    public void takeDrinks(){
 
-    }
 
 
 }

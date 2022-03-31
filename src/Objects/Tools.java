@@ -1,6 +1,7 @@
 package Objects;
 
 import Datas.DishesDatas;
+import Datas.DrinksDatas;
 
 import java.util.Random;
 
@@ -24,15 +25,42 @@ public interface Tools {
             System.out.println("Aucun plat");
         }
         else{
-            for(int i =0; i < tmpTable.getDishesList().size(); i++){
+            System.out.println("=========Plats choisis==========");
+            for(int i =0; i < tmpTable.getDishesList().size(); i++) {
                 System.out.println(tmpTable.getDishesList().get(i));
             }
+
+        }
+    }
+    public static void displayTableDrinks(int idTable){
+        Table tmpTable = listTable.get(idTable);
+        if(tmpTable.getDishesList().size() == 0){
+            System.out.println("Aucune boisson");
+        }
+        else{
+            System.out.println("===========Boissons=============");
+            for(int i =0; i < tmpTable.getDrinkList().size(); i++){
+                System.out.println(tmpTable.getDrinkList().get(i));
+            }
+
         }
     }
 
+
+
     public static void displayDishesList(){
+        int i=1;
         for(DishesDatas dishes : DishesDatas.values()){
-            System.out.println(dishes.toString());
+            System.out.println(i + "-" +dishes.toString());
+            i++;
+        }
+    }
+
+    public static void displayDrinksList(){
+        int i=1;
+        for(DrinksDatas drinks : DrinksDatas.values()){
+            System.out.println(i + "-" +drinks.toString());
+            i++;
         }
     }
 
