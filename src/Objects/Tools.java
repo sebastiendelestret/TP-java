@@ -2,6 +2,7 @@ package Objects;
 
 import Datas.DishesDatas;
 import Datas.DrinksDatas;
+import Datas.IngredientsDatas;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -86,6 +87,12 @@ public interface Tools {
         }
 
         System.out.println("Total ............." + totalPrice);
+    }
+
+    public static void displayStocks(){
+        for(IngredientsDatas ingredients:IngredientsDatas.values()){
+            System.out.println(ingredients.toString() + " : " + ingredients.getStocks());
+        }
     }
 
 }

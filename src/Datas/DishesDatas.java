@@ -24,4 +24,8 @@ public enum DishesDatas {
     public int getPrice() {
         return price;
     }
+
+    public IngredientsDatas[] getIngredients() {
+        return ingredients;
+    }
 }

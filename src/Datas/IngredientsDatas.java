@@ -14,4 +14,12 @@ public enum IngredientsDatas {
     private int stocks;
 
     IngredientsDatas(int stocks) {this.stocks = stocks; }
+
+    public int getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(int stocks) {
+        this.stocks = stocks;
+    }
 }

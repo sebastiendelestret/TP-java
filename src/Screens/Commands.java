@@ -2,6 +2,7 @@ package Screens;
 
 import Datas.DishesDatas;
 import Datas.DrinksDatas;
+import Datas.IngredientsDatas;
 import Objects.Table;
 import Objects.Tools;
 
@@ -89,15 +90,36 @@ public class Commands implements Tools {
             choice = scanner.nextInt() - 1;
 
             if(0<=choice && choice< tableDishes.length && dishesOrDrinks == 0){
-                listTable.get(choosenTable).addDishes(tableDishes[choice]);
-                System.out.println(tableDishes[choice].toString() + " ajouté");
+                if(checkStocks(tableDishes[choice])){
+                    listTable.get(choosenTable).addDishes(tableDishes[choice]);
+                    System.out.println(tableDishes[choice].toString() + " ajouté");
+                }
+                else{
+                    System.out.println("Plus d'ingrédients");
+                }
             }
-            else if(0<=choice && choice< tableDishes.length){
+
+            else if(0<=choice && choice< tableDrinks.length){
                 listTable.get(choosenTable).addDrink(tableDrinks[choice]);
                 System.out.println(tableDrinks[choice].toString() + " ajouté");
             }
 
         }while (choice != -1);
+    }
+
+    public boolean checkStocks(DishesDatas dishe){
+
+
+        for(IngredientsDatas ingredient:dishe.getIngredients()){
+            if(ingredient.getStocks()<1){
+                return false;
+            }
+        }
+        for(IngredientsDatas ingredient:dishe.getIngredients()){
+            ingredient.setStocks(ingredient.getStocks()-1);
+        }
+        return true;
+
     }
 
 

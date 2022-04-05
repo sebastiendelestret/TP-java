@@ -51,6 +51,9 @@ public class Monitoring implements Tools {
                     deleteEmploye();
                     displayEmploye();
                     break;
+                case 5:
+                    Tools.displayStocks();
+                    break;
                 default:
                     break;
 
