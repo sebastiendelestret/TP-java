@@ -2,11 +2,13 @@ package Screens;
 
 import Datas.DishesDatas;
 import Datas.DrinksDatas;
+import Datas.IngredientsDatas;
 import Objects.Employe;
 import Objects.Table;
 import Objects.Tools;
 
 import javax.tools.Tool;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static Objects.Util.listEmploye;
@@ -41,6 +43,7 @@ public class Monitoring implements Tools {
                 case 1:
                     break;
                 case 2:
+                    displayListeCourse();
                     break;
                 case 3:
                     addEmploye();
@@ -60,6 +63,16 @@ public class Monitoring implements Tools {
             }
         }while (choice != 0);
     }
+    public void displayListeCourse() {
+        System.out.println("====== Liste de Course ======");
+
+        for(IngredientsDatas data: IngredientsDatas.values()) {
+            if(data.getStocks() <= 5) {
+                System.out.println(data.toString() + " x 20");
+            }
+        }
+    }
+
 
     public void addEmploye() {
         System.out.println("Nom :");

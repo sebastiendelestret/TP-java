@@ -3,11 +3,11 @@ package Datas;
 public enum IngredientsDatas {
     SALADE(20),
     TOMATE(30),
-    OIGNON(12),
+    OIGNON(4),
     CHAMPIGNONS(25),
     PAIN(15),
     VIANDE(20),
-    PATE(7),
+    PATE(2),
     FROMAGE(20),
     CHORIZO(30);
 
