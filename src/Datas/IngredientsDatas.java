@@ -22,4 +22,8 @@ public enum IngredientsDatas {
     public void setStocks(int stocks) {
         this.stocks = stocks;
     }
+
+    public void addStocks(int stocks) {
+        this.stocks += stocks;
+    }
 }

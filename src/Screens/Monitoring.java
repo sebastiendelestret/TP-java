@@ -16,17 +16,17 @@ import static Objects.Util.listTable;
 
 
 public class Monitoring implements Tools {
-    public Monitoring(){
+    public Monitoring() {
 
     }
 
-    public void update(){
+    public void update() {
         System.out.println("Ecran Monitoring");
 
         takeCommand();
     }
 
-    public void takeCommand(){
+    public void takeCommand() {
         int choice;
         do {
             System.out.println("0-Retour");
@@ -56,23 +56,40 @@ public class Monitoring implements Tools {
                     break;
                 case 5:
                     Tools.displayStocks();
+                    majIngredients();
+                    break;
+
+                case 6:
+                    programEmploye();
                     break;
                 default:
                     break;
 
             }
-        }while (choice != 0);
+        } while (choice != 0);
     }
+
     public void displayListeCourse() {
         System.out.println("====== Liste de Course ======");
 
-        for(IngredientsDatas data: IngredientsDatas.values()) {
-            if(data.getStocks() <= 5) {
+        for (IngredientsDatas data : IngredientsDatas.values()) {
+            if (data.getStocks() <= 5) {
                 System.out.println(data.toString() + " x 20");
             }
         }
     }
 
+    public void majIngredients() {
+        System.out.println("====== Maj Ingédients ======");
+
+        for (IngredientsDatas data : IngredientsDatas.values()) {
+            System.out.println(data.toString() + " Nombre : ");
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
+
+            data.addStocks(choice);
+        }
+    }
 
     public void addEmploye() {
         System.out.println("Nom :");
@@ -81,10 +98,7 @@ public class Monitoring implements Tools {
         System.out.println("Prénom :");
         Scanner scanner2 = new Scanner(System.in);
         String choice2 = scanner2.next();
-        System.out.println("Poste :");
-        Scanner scanner3 = new Scanner(System.in);
-        String choice3 = scanner3.next();
-        listEmploye.add(new Employe(choice,choice2,choice3));
+        listEmploye.add(new Employe(choice, choice2));
     }
 
     public void deleteEmploye() {
@@ -96,8 +110,42 @@ public class Monitoring implements Tools {
 
     public void displayEmploye() {
         System.out.println("=====Employés=====");
-        for(int i = 0; i < listEmploye.size(); i++) {
-            System.out.println(i+". "+listEmploye.get(i).name+ " "+listEmploye.get(i).firstname+" "+listEmploye.get(i).post);
+        for (int i = 0; i < listEmploye.size(); i++) {
+            System.out.println(i + ". " + listEmploye.get(i).name + " " + listEmploye.get(i).firstname + " " + listEmploye.get(i).post);
+        }
+    }
+
+    public void programEmploye() {
+        System.out.println("===== Liste des Employés=====");
+        for (int i = 0; i < listEmploye.size(); i++) {
+            System.out.println(i + ". " + listEmploye.get(i).name + " " + listEmploye.get(i).firstname + " " + listEmploye.get(i).post);
+        }
+        System.out.println("===== Prog de la soirée =====");
+        int nb = 0;
+        System.out.println("Nombre d'employé souhaité :");
+        Scanner scanner3 = new Scanner(System.in);
+        int choice3 = scanner3.nextInt();
+        if(choice3 < 4) {
+            System.out.println("Il faut au moins 4 employés");
+        }else {
+
+        while(nb < choice3) {
+
+            System.out.println("Numéro :");
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
+            if(listEmploye.get(choice).getPost() != "Vide") {
+                System.out.println("Cet employé est deja attribué à un poste !");
+            }else {
+                System.out.println("Poste : (Cuisinier -  Serveur - Manager - Barman)");
+                Scanner scanner2 = new Scanner(System.in);
+                String choice2 = scanner2.next();
+                listEmploye.get(choice).setPost(choice2);
+                System.out.println("Employe :" + " " + choice + " Poste : " + choice2);
+                nb++;
+            }
+
+        }
         }
     }
 }

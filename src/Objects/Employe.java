@@ -6,10 +6,16 @@ public class Employe {
     public int salary;
     public String post;
 
-    public Employe(String name_, String firstname_, String post_) {
+    public Employe(String name_, String firstname_) {
         this.name = name_;
         this.firstname = firstname_;
-        this.post = post_;
+        this.post = "Vide";
     }
 
+    public void setPost(String post_) {
+        this.post = post_;
+    }
+    public String getPost() {
+        return this.post;
+    }
 }
