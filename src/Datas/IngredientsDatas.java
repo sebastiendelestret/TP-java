@@ -1,15 +1,15 @@
 package Datas;
 
 public enum IngredientsDatas {
-    SALADE(20),
-    TOMATE(30),
-    OIGNON(4),
-    CHAMPIGNONS(25),
-    PAIN(15),
-    VIANDE(20),
-    PATE(2),
-    FROMAGE(20),
-    CHORIZO(30);
+    SALADE(0),
+    TOMATE(0),
+    OIGNON(0),
+    CHAMPIGNONS(0),
+    PAIN(0),
+    VIANDE(0),
+    PATE(0),
+    FROMAGE(0),
+    CHORIZO(0);
 
     private int stocks;
 

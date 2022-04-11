@@ -3,6 +3,7 @@ package Objects;
 import Datas.IngredientsDatas;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Register {
     private String ingredientFile = "ressources/ingredients";
@@ -14,7 +15,11 @@ public class Register {
     public void registerIngredientsStocks() {
 
         try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(ingredientFile)))) {
-            out.writeObject(IngredientsDatas.values());
+            ArrayList<Integer>stocks = new ArrayList<Integer>();
+            for(IngredientsDatas datas:IngredientsDatas.values()){
+                stocks.add(datas.getStocks());
+            }
+            out.writeObject(stocks);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -25,10 +30,9 @@ public class Register {
 
     public void readIngredientsStocks() {
         try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(ingredientFile)))) {
-            IngredientsDatas[] datas = (IngredientsDatas[]) in.readObject();
-            for(int i=0; i< datas.length; i++){
-                System.out.println(datas[i].getStocks());
-                IngredientsDatas.values()[i].setStocks(datas[i].getStocks());
+            ArrayList<Integer>stocks = (ArrayList<Integer>) in.readObject();
+            for(int i =0; i<stocks.size(); i++){
+                IngredientsDatas.values()[i].setStocks(stocks.get(i));
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
