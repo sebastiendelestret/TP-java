@@ -134,16 +134,21 @@ public class Monitoring implements Tools {
             System.out.println("Numéro :");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
-            if(listEmploye.get(choice).getPost() != "Vide") {
-                System.out.println("Cet employé est deja attribué à un poste !");
+            if(listEmploye.get(choice) != null) {
+                if(listEmploye.get(choice).getPost() != "Vide") {
+                    System.out.println("Cet employé est deja attribué à un poste !");
+                }else {
+                    System.out.println("Poste : (Cuisinier -  Serveur - Manager - Barman)");
+                    Scanner scanner2 = new Scanner(System.in);
+                    String choice2 = scanner2.next();
+                    listEmploye.get(choice).setPost(choice2);
+                    System.out.println("Employe :" + " " + choice + " Poste : " + choice2);
+                    nb++;
+                }
             }else {
-                System.out.println("Poste : (Cuisinier -  Serveur - Manager - Barman)");
-                Scanner scanner2 = new Scanner(System.in);
-                String choice2 = scanner2.next();
-                listEmploye.get(choice).setPost(choice2);
-                System.out.println("Employe :" + " " + choice + " Poste : " + choice2);
-                nb++;
+                System.out.println("Ce numéro d'employé n'existe pas");
             }
+
 
         }
         }

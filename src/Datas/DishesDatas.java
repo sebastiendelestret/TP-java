@@ -14,7 +14,10 @@ public enum DishesDatas {
 
     PIZZA_FROMAGE(7,new IngredientsDatas[]{IngredientsDatas.PATE,IngredientsDatas.TOMATE,IngredientsDatas.FROMAGE}),
     PIZZA_CHAMPIGNONS(7,new IngredientsDatas[]{IngredientsDatas.PATE,IngredientsDatas.TOMATE,IngredientsDatas.FROMAGE,IngredientsDatas.CHAMPIGNONS}),
-    PIZZA_CHORIZO(8,new IngredientsDatas[]{IngredientsDatas.PATE,IngredientsDatas.TOMATE,IngredientsDatas.FROMAGE,IngredientsDatas.CHORIZO});
+    PIZZA_CHORIZO(8,new IngredientsDatas[]{IngredientsDatas.PATE,IngredientsDatas.TOMATE,IngredientsDatas.FROMAGE,IngredientsDatas.CHORIZO}),
+
+    FAJITAS_POULET(11,new IngredientsDatas[]{IngredientsDatas.PAIN_SUEDOIS,IngredientsDatas.RIZ,IngredientsDatas.POULET}),
+    FAJITAS_VIANDE(11, new IngredientsDatas[]{IngredientsDatas.PAIN_SUEDOIS,IngredientsDatas.RIZ,IngredientsDatas.VIANDE});
 
     private int price;
     private IngredientsDatas ingredients[];

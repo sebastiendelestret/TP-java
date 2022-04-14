@@ -9,7 +9,10 @@ public enum IngredientsDatas {
     VIANDE(0),
     PATE(0),
     FROMAGE(0),
-    CHORIZO(0);
+    CHORIZO(0),
+    PAIN_SUEDOIS(0),
+    RIZ(0),
+    POULET(0);
 
     private int stocks;
 
