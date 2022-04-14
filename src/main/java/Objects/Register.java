@@ -1,12 +1,13 @@
 package Objects;
 
 import Datas.IngredientsDatas;
+import com.example.tpjavafx.Main;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public class Register {
-    private String ingredientFile = "ressources/ingredients";
+    private String ingredientFile = "src/main/resources/ingredients";
 
     public Register() {
         readIngredientsStocks();

@@ -6,7 +6,6 @@ import Datas.IngredientsDatas;
 import Objects.Table;
 import Objects.Tools;
 
-import javax.tools.Tool;
 import java.util.Scanner;
 
 import static Objects.Util.listTable;
