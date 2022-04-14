@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TP-java.iml" filepath="$PROJECT_DIR$/TP-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TP-java-fx.iml" filepath="$PROJECT_DIR$/TP-java-fx.iml" />
     </modules>
   </component>
 </project>
