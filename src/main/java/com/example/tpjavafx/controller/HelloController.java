@@ -1,6 +1,7 @@
 package com.example.tpjavafx.controller;
 
 import com.example.tpjavafx.Objects.Stageable;
+import com.example.tpjavafx.Screens.Principal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,8 @@ import com.example.tpjavafx.Objects.Stageable;
 
 
 public class HelloController implements Stageable {
+
+    private Principal principal = new Principal();
 
 
     private Stage stage;

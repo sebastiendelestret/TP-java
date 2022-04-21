@@ -20,6 +20,7 @@ public class Register {
                 stocks.add(datas.getStocks());
             }
             out.writeObject(stocks);
+            System.out.println("File registered");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -34,6 +35,8 @@ public class Register {
             for(int i =0; i<stocks.size(); i++){
                 IngredientsDatas.values()[i].setStocks(stocks.get(i));
             }
+            System.out.println("File read");
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

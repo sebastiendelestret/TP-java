@@ -28,14 +28,12 @@ public class Main extends Application {
     private static Map<SceneName, FxmlInfo> scenes = new HashMap<>();
 
     public static void main(String[] args){
+
+        Register fileRegister = new Register();
+
         launch();
 
-        /*Register fileRegister = new Register();
-
-        screenMenu = new Principal();
-        screenMenu.update();
-
-        fileRegister.registerIngredientsStocks();*/
+        fileRegister.registerIngredientsStocks();
     }
 
 
