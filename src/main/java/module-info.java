@@ -7,5 +7,7 @@ module com.example.tpjavafx{
 
     opens com.example.tpjavafx to javafx.fxml;
     exports com.example.tpjavafx;
+    exports com.example.tpjavafx.controller;
+    opens com.example.tpjavafx.controller to javafx.fxml;
 
 }

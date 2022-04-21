@@ -1,6 +1,6 @@
-package Objects;
-import Datas.DishesDatas;
-import Datas.DrinksDatas;
+package com.example.tpjavafx.Objects;
+import com.example.tpjavafx.Datas.DishesDatas;
+import com.example.tpjavafx.Datas.DrinksDatas;
 
 import java.util.ArrayList;
 

@@ -38,7 +38,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="rootPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tpjavafx.HelloController">
+<AnchorPane fx:id="rootPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tpjavafx.controller.HelloController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" text="Menu Ecrans" textAlignment="CENTER">
          <font>

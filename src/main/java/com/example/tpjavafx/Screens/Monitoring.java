@@ -1,17 +1,12 @@
-package Screens;
+package com.example.tpjavafx.Screens;
 
-import Datas.DishesDatas;
-import Datas.DrinksDatas;
-import Datas.IngredientsDatas;
-import Objects.Employe;
-import Objects.Table;
-import Objects.Tools;
+import com.example.tpjavafx.Datas.IngredientsDatas;
+import com.example.tpjavafx.Objects.Employe;
+import com.example.tpjavafx.Objects.Tools;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Objects.Util.listEmploye;
-import static Objects.Util.listTable;
+import static com.example.tpjavafx.Objects.Util.listEmploye;
 
 
 public class Monitoring implements Tools {

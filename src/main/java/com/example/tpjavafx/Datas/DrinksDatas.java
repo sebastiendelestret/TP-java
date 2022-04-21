@@ -1,4 +1,4 @@
-package Datas;
+package com.example.tpjavafx.Datas;
 
 public enum DrinksDatas {
     LIMONADE(4),

@@ -1,4 +1,4 @@
-package Datas;
+package com.example.tpjavafx.Datas;
 
 public enum DishesDatas {
     SALADE_TOMATE(5,new IngredientsDatas[]{IngredientsDatas.SALADE,IngredientsDatas.TOMATE}),

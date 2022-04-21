@@ -1,14 +1,13 @@
-package Screens;
+package com.example.tpjavafx.Screens;
 
-import Datas.DishesDatas;
-import Datas.DrinksDatas;
-import Datas.IngredientsDatas;
-import Objects.Table;
-import Objects.Tools;
+import com.example.tpjavafx.Datas.DishesDatas;
+import com.example.tpjavafx.Datas.DrinksDatas;
+import com.example.tpjavafx.Datas.IngredientsDatas;
+import com.example.tpjavafx.Objects.Tools;
 
 import java.util.Scanner;
 
-import static Objects.Util.listTable;
+import static com.example.tpjavafx.Objects.Util.listTable;
 
 
 public class Commands implements Tools {

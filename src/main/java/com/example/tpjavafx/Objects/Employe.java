@@ -1,4 +1,4 @@
-package Objects;
+package com.example.tpjavafx.Objects;
 
 public class Employe {
     public String name;

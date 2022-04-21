@@ -1,36 +1,63 @@
 package com.example.tpjavafx;
 
-import Objects.Register;
-import Screens.Principal;
+import com.example.tpjavafx.Objects.Register;
+import com.example.tpjavafx.Objects.SceneName;
+import com.example.tpjavafx.Screens.Principal;
+import com.example.tpjavafx.Objects.FxmlInfo;
+import com.example.tpjavafx.Objects.SceneName;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends Application {
 
     private static Principal screenMenu;
 
+    private static final String mainFXML = "hello-view.fxml";
+    private static final String commandFXML = "commande-view.fxml";
+    private static final String barFXML = "bar-view.fxml";
+    private static final String cuisineFXML = "cuisine-view.fxml";
+    private static final String monitoringFXML = "monitoring-view.fxml";
+
+    private static Map<SceneName, FxmlInfo> scenes = new HashMap<>();
+
     public static void main(String[] args){
         launch();
 
-        Register fileRegister = new Register();
+        /*Register fileRegister = new Register();
 
         screenMenu = new Principal();
         screenMenu.update();
 
-        fileRegister.registerIngredientsStocks();
+        fileRegister.registerIngredientsStocks();*/
     }
 
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),520,440);
+
+        scenes.put(SceneName.MAIN, new FxmlInfo(mainFXML, SceneName.MAIN, stage));
+        scenes.put(SceneName.COMMAND, new FxmlInfo(commandFXML, SceneName.COMMAND, stage));
+        scenes.put(SceneName.BAR, new FxmlInfo(barFXML, SceneName.BAR, stage));
+        scenes.put(SceneName.CUISINE, new FxmlInfo(cuisineFXML, SceneName.CUISINE, stage));
+        scenes.put(SceneName.MONITORING, new FxmlInfo(monitoringFXML, SceneName.MONITORING, stage));
+
         stage.setTitle("Menu Ecrans");
-        stage.setScene(scene);
+        stage.setScene(scenes.get(SceneName.MAIN).getScene());
         stage.show();
+    }
+
+    public static Map<SceneName, FxmlInfo> getScenes() {
+        return scenes;
+    }
+
+    public static void updateScenes(SceneName name, FxmlInfo info) {
+        scenes.put(name, info);
     }
 }

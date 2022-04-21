@@ -1,13 +1,13 @@
-package Objects;
+package com.example.tpjavafx.Objects;
 
-import Datas.DishesDatas;
-import Datas.DrinksDatas;
-import Datas.IngredientsDatas;
+import com.example.tpjavafx.Datas.DishesDatas;
+import com.example.tpjavafx.Datas.DrinksDatas;
+import com.example.tpjavafx.Datas.IngredientsDatas;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static Objects.Util.listTable;
+import static com.example.tpjavafx.Objects.Util.listTable;
 
 public interface Tools {
     public static int getRandInt(int min, int max){

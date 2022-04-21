@@ -1,7 +1,6 @@
-package Objects;
+package com.example.tpjavafx.Objects;
 
-import Datas.IngredientsDatas;
-import com.example.tpjavafx.Main;
+import com.example.tpjavafx.Datas.IngredientsDatas;
 
 import java.io.*;
 import java.util.ArrayList;

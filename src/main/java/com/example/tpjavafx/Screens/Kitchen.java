@@ -1,10 +1,10 @@
-package Screens;
+package com.example.tpjavafx.Screens;
 
-import Objects.Tools;
+import com.example.tpjavafx.Objects.Tools;
 
 import java.util.Scanner;
 
-import static Objects.Util.listTable;
+import static com.example.tpjavafx.Objects.Util.listTable;
 
 public class Kitchen implements Tools {
 
