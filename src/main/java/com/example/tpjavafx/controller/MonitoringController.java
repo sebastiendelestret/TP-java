@@ -3,6 +3,8 @@ package com.example.tpjavafx.controller;
 import com.example.tpjavafx.Datas.IngredientsDatas;
 import com.example.tpjavafx.Objects.Stageable;
 import com.example.tpjavafx.Objects.Tools;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,8 +15,6 @@ import javafx.stage.Stage;
 
 import com.example.tpjavafx.Main;
 import com.example.tpjavafx.Objects.SceneName;
-import com.example.tpjavafx.Objects.FxmlInfo;
-import com.example.tpjavafx.Objects.ingredientItem;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,11 +25,18 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     private Stage stage;
 
     @FXML private TableView<ingredientItem> tableIngredients;
-    @FXML private TableColumn<String, String> ingredientsColumn;
-    @FXML private TableColumn<String, Integer> stocksColumn;
+    @FXML private TableColumn<ingredientItem, String> name;
+    @FXML private TableColumn<ingredientItem, Integer> stocks;
+
+    public ObservableList<ingredientItem> listIngredient = FXCollections.observableArrayList(
+    );
 
     @FXML private void retour(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.MAIN).getScene());
+    }
+
+    @FXML private void refreshTable(ActionEvent event){
+        refresh();
     }
 
     @Override
@@ -39,8 +46,16 @@ public class MonitoringController implements Stageable, Initializable, Tools {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        refresh();
+    }
+
+    private void refresh(){
+        tableIngredients.getItems().clear();
         for(IngredientsDatas data:IngredientsDatas.values()){
-            tableIngredients.getItems().add(new ingredientItem(data.getStocks(), data.toString()));
+            listIngredient.add(new ingredientItem(data.toString(), data.getStocks()));
         }
+        name.setCellValueFactory(new PropertyValueFactory<ingredientItem, String>("name"));
+        stocks.setCellValueFactory(new PropertyValueFactory<ingredientItem, Integer>("stocks"));
+        tableIngredients.setItems(listIngredient);
     }
 }
