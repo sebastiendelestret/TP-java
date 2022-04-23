@@ -6,6 +6,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tpjavafx.controller.BarController">
    <children>
       <Label text="Bar" />
-      <Button layoutX="441.0" layoutY="269.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
+      <Button layoutX="10.0" layoutY="33.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
+      <FlowPane fx:id="barFlowPane" layoutX="86.0" layoutY="86.0" prefHeight="300.0" prefWidth="500.0" />
+      <Button layoutX="9.0" layoutY="73.0" mnemonicParsing="false" onAction="#refreshScreen" text="refresh" />
    </children>
 </AnchorPane>

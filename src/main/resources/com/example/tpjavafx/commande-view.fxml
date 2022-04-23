@@ -32,6 +32,7 @@
       </MenuButton>
       <Button fx:id="serveTableButton" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" onAction="#serveTable" prefHeight="25.0" prefWidth="115.0" text="Servir" />
       <Button fx:id="printNoteButton" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#printNote" prefHeight="25.0" prefWidth="115.0" text="Imprimer note" />
+      <Button layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#departClients" prefHeight="25.0" prefWidth="115.0" text="départ clients" />
 
    </children>
 </AnchorPane>

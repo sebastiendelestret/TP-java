@@ -1,5 +1,7 @@
 package com.example.tpjavafx.controller;
 
+import com.example.tpjavafx.Datas.DishesDatas;
+import com.example.tpjavafx.Datas.DrinksDatas;
 import com.example.tpjavafx.Datas.IngredientsDatas;
 import com.example.tpjavafx.Objects.Stageable;
 import com.example.tpjavafx.Objects.Tools;
@@ -8,9 +10,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import com.example.tpjavafx.Main;
@@ -18,24 +22,39 @@ import com.example.tpjavafx.Objects.SceneName;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static com.example.tpjavafx.Objects.Util.allServedDrinks;
+import static com.example.tpjavafx.Objects.Util.allServedDishes;
 
 public class MonitoringController implements Stageable, Initializable, Tools {
 
+    @FXML private Label labelDishes;
+    @FXML private Label labelDrinks;
+    @FXML private Label labelSales;
+    @FXML private Pane performancePane;
+    @FXML private Pane stocksPane;
     private Stage stage;
 
-    @FXML private TableView<ingredientItem> tableIngredients;
-    @FXML private TableColumn<ingredientItem, String> name;
-    @FXML private TableColumn<ingredientItem, Integer> stocks;
+
+    @FXML
+    private TableView<ingredientItem> tableIngredients;
+    @FXML
+    private TableColumn<ingredientItem, String> name;
+    @FXML
+    private TableColumn<ingredientItem, Integer> stocks;
 
     public ObservableList<ingredientItem> listIngredient = FXCollections.observableArrayList(
     );
 
-    @FXML private void retour(ActionEvent event) throws IOException {
+    @FXML
+    private void retour(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.MAIN).getScene());
     }
 
-    @FXML private void refreshTable(ActionEvent event){
+    @FXML
+    private void refreshTable(ActionEvent event) {
         refresh();
     }
 
@@ -49,13 +68,59 @@ public class MonitoringController implements Stageable, Initializable, Tools {
         refresh();
     }
 
-    private void refresh(){
+    private void refresh() {
         tableIngredients.getItems().clear();
-        for(IngredientsDatas data:IngredientsDatas.values()){
+        for (IngredientsDatas data : IngredientsDatas.values()) {
             listIngredient.add(new ingredientItem(data.toString(), data.getStocks()));
         }
         name.setCellValueFactory(new PropertyValueFactory<ingredientItem, String>("name"));
         stocks.setCellValueFactory(new PropertyValueFactory<ingredientItem, Integer>("stocks"));
         tableIngredients.setItems(listIngredient);
     }
+
+    @FXML
+    public void performances(ActionEvent event) {
+        hidePanes();
+        performancePane.setVisible(true);
+
+        int totalDishes = 0;
+        int totalDrinks = 0;
+        int totalSales = 0;
+
+        for(DishesDatas data:allServedDishes){
+            totalDishes++;
+            totalSales+=data.getPrice();
+        }
+        for(DrinksDatas data:allServedDrinks){
+            totalDrinks++;
+            totalSales+=data.getPrice();
+        }
+
+        labelDishes.setText(Integer.toString(totalDishes));
+        labelDrinks.setText(Integer.toString(totalDrinks));
+        labelSales.setText(Integer.toString(totalSales) + "€");
+
+
+    }
+
+    @FXML
+    public void afficherStocks(ActionEvent event) {
+        hidePanes();
+        stocksPane.setVisible(true);
+    }
+
+    @FXML
+    public void majStocks(ActionEvent event) {
+    }
+
+    @FXML
+    public void generateList(ActionEvent event) {
+    }
+
+    private void hidePanes() {
+        performancePane.setVisible(false);
+        stocksPane.setVisible(false);
+    }
+
+
 }

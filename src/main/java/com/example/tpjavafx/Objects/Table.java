@@ -5,6 +5,9 @@ import com.example.tpjavafx.Datas.DrinksDatas;
 
 import java.util.ArrayList;
 
+import static com.example.tpjavafx.Objects.Util.allServedDishes;
+import static com.example.tpjavafx.Objects.Util.allServedDrinks;
+
 public class Table {
 
     private int nbPlaces;
@@ -34,6 +37,10 @@ public class Table {
 
     public void clientsLeave(){
         this.nbClients =0;
+        allServedDishes.addAll(servedDishesList);
+        allServedDrinks.addAll(servedDrinksList);
+
+        dishesList.clear(); drinkList.clear(); servedDishesList.clear(); servedDrinksList.clear();
     }
 
     public void addDishes(DishesDatas newDishes){
@@ -55,6 +62,7 @@ public class Table {
         }
         dishesList.clear(); drinkList.clear();
     }
+
 
     public int getNbPlaces() { return nbPlaces; }
 

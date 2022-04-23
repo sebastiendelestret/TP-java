@@ -7,7 +7,6 @@ import static com.example.tpjavafx.Objects.Util.listTable;
 
 public class Principal implements Tools {
 
-    private Bar bar = new Bar();
     private Monitoring monitoring = new Monitoring();
 
     public Principal(){

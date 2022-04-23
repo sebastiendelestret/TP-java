@@ -52,6 +52,11 @@ public class CommandController implements Stageable, Initializable, Tools {
     }
 
     @FXML
+    private void departClients(ActionEvent event){
+        listTable.get(chosenTable).clientsLeave();
+    }
+
+    @FXML
     private void serveTable(ActionEvent event){
         listTable.get(chosenTable).serveClients();
         displayChosenDishesDrinks();
