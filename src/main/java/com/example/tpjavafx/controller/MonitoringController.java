@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -44,6 +45,8 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     private TableColumn<ingredientItem, String> name;
     @FXML
     private TableColumn<ingredientItem, Integer> stocks;
+    @FXML
+    private TableColumn<ingredientItem, TextField> addStocks;
 
     public ObservableList<ingredientItem> listIngredient = FXCollections.observableArrayList(
     );
@@ -71,10 +74,11 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     private void refresh() {
         tableIngredients.getItems().clear();
         for (IngredientsDatas data : IngredientsDatas.values()) {
-            listIngredient.add(new ingredientItem(data.toString(), data.getStocks()));
+            listIngredient.add(new ingredientItem(data.toString(), data.getStocks(), new TextField()));
         }
         name.setCellValueFactory(new PropertyValueFactory<ingredientItem, String>("name"));
         stocks.setCellValueFactory(new PropertyValueFactory<ingredientItem, Integer>("stocks"));
+        addStocks.setCellValueFactory(new PropertyValueFactory<ingredientItem, TextField>("input"));
         tableIngredients.setItems(listIngredient);
     }
 
@@ -103,6 +107,16 @@ public class MonitoringController implements Stageable, Initializable, Tools {
 
     }
 
+    @FXML void remplirStocks(ActionEvent event){
+        for(int i =0; i< IngredientsDatas.values().length; i++){
+
+            IngredientsDatas.values()[i].addStocks(
+                    Integer.parseInt(tableIngredients.getItems().get(i).getInput().getText())
+            );
+        }
+        refresh();
+    }
+
     @FXML
     public void afficherStocks(ActionEvent event) {
         hidePanes();
@@ -111,6 +125,8 @@ public class MonitoringController implements Stageable, Initializable, Tools {
 
     @FXML
     public void majStocks(ActionEvent event) {
+
+
     }
 
     @FXML

@@ -24,7 +24,6 @@ public class Monitoring implements Tools {
         int choice;
         do {
             System.out.println("0-Retour");
-            System.out.println("1-Performances du restaurant");
             System.out.println("2-Impression de la liste de course");
             System.out.println("3-Ajouter un employé");
             System.out.println("4-Supprimer un employé");
