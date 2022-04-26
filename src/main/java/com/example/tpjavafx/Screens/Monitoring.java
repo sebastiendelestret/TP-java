@@ -91,7 +91,7 @@ public class Monitoring implements Tools {
         System.out.println("Prénom :");
         Scanner scanner2 = new Scanner(System.in);
         String choice2 = scanner2.next();
-        listEmploye.add(new Employe(choice, choice2));
+        //listEmploye.add(new Employe(choice, choice2));
     }
 
     public void deleteEmploye() {
@@ -104,14 +104,14 @@ public class Monitoring implements Tools {
     public void displayEmploye() {
         System.out.println("=====Employés=====");
         for (int i = 0; i < listEmploye.size(); i++) {
-            System.out.println(i + ". " + listEmploye.get(i).name + " " + listEmploye.get(i).firstname + " " + listEmploye.get(i).post);
+            //System.out.println(i + ". " + listEmploye.get(i).name + " " + listEmploye.get(i).firstname + " " + listEmploye.get(i).post);
         }
     }
 
     public void programEmploye() {
         System.out.println("===== Liste des Employés=====");
         for (int i = 0; i < listEmploye.size(); i++) {
-            System.out.println(i + ". " + listEmploye.get(i).name + " " + listEmploye.get(i).firstname + " " + listEmploye.get(i).post);
+            //System.out.println(i + ". " + listEmploye.get(i).name + " " + listEmploye.get(i).firstname + " " + listEmploye.get(i).post);
         }
         System.out.println("===== Prog de la soirée =====");
         int nb = 0;
@@ -134,7 +134,7 @@ public class Monitoring implements Tools {
                     System.out.println("Poste : (Cuisinier -  Serveur - Manager - Barman)");
                     Scanner scanner2 = new Scanner(System.in);
                     String choice2 = scanner2.next();
-                    listEmploye.get(choice).setPost(choice2);
+                    //listEmploye.get(choice).setPost(choice2);
                     System.out.println("Employe :" + " " + choice + " Poste : " + choice2);
                     nb++;
                 }

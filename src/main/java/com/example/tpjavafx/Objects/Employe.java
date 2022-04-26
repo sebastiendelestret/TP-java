@@ -1,21 +1,26 @@
 package com.example.tpjavafx.Objects;
 
 public class Employe {
-    public String name;
-    public String firstname;
+    private String name;
+    private String firstname;
     public int salary;
-    public String post;
+    private String post;
 
-    public Employe(String name_, String firstname_) {
+    public Employe(String name_, String firstname_,String _post) {
         this.name = name_;
         this.firstname = firstname_;
-        this.post = "Vide";
+        this.post = _post;
     }
 
-    public void setPost(String post_) {
-        this.post = post_;
-    }
     public String getPost() {
-        return this.post;
+        return post;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFirstname() {
+        return firstname;
     }
 }

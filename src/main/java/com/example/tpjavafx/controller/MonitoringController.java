@@ -3,6 +3,7 @@ package com.example.tpjavafx.controller;
 import com.example.tpjavafx.Datas.DishesDatas;
 import com.example.tpjavafx.Datas.DrinksDatas;
 import com.example.tpjavafx.Datas.IngredientsDatas;
+import com.example.tpjavafx.Objects.Employe;
 import com.example.tpjavafx.Objects.Stageable;
 import com.example.tpjavafx.Objects.Tools;
 import javafx.collections.FXCollections;
@@ -10,10 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -23,19 +21,32 @@ import com.example.tpjavafx.Objects.SceneName;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.example.tpjavafx.Objects.Util.allServedDrinks;
 import static com.example.tpjavafx.Objects.Util.allServedDishes;
+import static com.example.tpjavafx.Objects.Util.listEmploye;
 
 public class MonitoringController implements Stageable, Initializable, Tools {
 
-    @FXML private Label labelDishes;
-    @FXML private Label labelDrinks;
-    @FXML private Label labelSales;
-    @FXML private Pane performancePane;
-    @FXML private Pane stocksPane;
+    @FXML
+    private TextField inputName;
+    @FXML
+    private TextField inputFirstName;
+    @FXML
+    private ChoiceBox<String> inputPost;
+    @FXML
+    private Label labelDishes;
+    @FXML
+    private Label labelDrinks;
+    @FXML
+    private Label labelSales;
+    @FXML
+    private Pane performancePane;
+    @FXML
+    private Pane stocksPane;
+    @FXML
+    private Pane employeePane;
     private Stage stage;
 
 
@@ -48,8 +59,18 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     @FXML
     private TableColumn<ingredientItem, TextField> addStocks;
 
-    public ObservableList<ingredientItem> listIngredient = FXCollections.observableArrayList(
-    );
+    @FXML
+    private TableView<employeeItem> tableEmployee;
+    @FXML
+    private TableColumn<employeeItem, String> employeeName;
+    @FXML
+    private TableColumn<employeeItem, String> employeeFirstName;
+    @FXML
+    private TableColumn<employeeItem, String> employeePost;
+
+    public ObservableList<ingredientItem> listIngredient = FXCollections.observableArrayList();
+
+    public ObservableList<employeeItem> listEmployeeObservable = FXCollections.observableArrayList();
 
     @FXML
     private void retour(ActionEvent event) throws IOException {
@@ -69,6 +90,11 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         refresh();
+        String[] posts = {"Cuisinier", "Barman", "Manager", "Serveur"};
+        for(String post:posts){
+            inputPost.getItems().add(post);
+        }
+
     }
 
     private void refresh() {
@@ -83,6 +109,27 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     }
 
     @FXML
+    private void refreshEmployee() {
+        tableEmployee.getItems().clear();
+        for (Employe employe : listEmploye) {
+            System.out.println(employe.getName());
+
+            listEmployeeObservable.add(new employeeItem(employe.getName(), employe.getFirstname(), employe.getPost()));
+        }
+        employeeName.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("name"));
+        employeeFirstName.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("firstName"));
+        employeePost.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("post"));
+        tableEmployee.setItems(listEmployeeObservable);
+    }
+
+    @FXML private void addEmployee(ActionEvent event){
+        listEmploye.add(new Employe(inputName.getText(), inputFirstName.getText(), inputPost.getValue()));
+        inputFirstName.setText("");inputName.setText("");
+        refreshEmployee();
+
+    }
+
+    @FXML
     public void performances(ActionEvent event) {
         hidePanes();
         performancePane.setVisible(true);
@@ -91,13 +138,13 @@ public class MonitoringController implements Stageable, Initializable, Tools {
         int totalDrinks = 0;
         int totalSales = 0;
 
-        for(DishesDatas data:allServedDishes){
+        for (DishesDatas data : allServedDishes) {
             totalDishes++;
-            totalSales+=data.getPrice();
+            totalSales += data.getPrice();
         }
-        for(DrinksDatas data:allServedDrinks){
+        for (DrinksDatas data : allServedDrinks) {
             totalDrinks++;
-            totalSales+=data.getPrice();
+            totalSales += data.getPrice();
         }
 
         labelDishes.setText(Integer.toString(totalDishes));
@@ -107,8 +154,9 @@ public class MonitoringController implements Stageable, Initializable, Tools {
 
     }
 
-    @FXML void remplirStocks(ActionEvent event){
-        for(int i =0; i< IngredientsDatas.values().length; i++){
+    @FXML
+    void remplirStocks(ActionEvent event) {
+        for (int i = 0; i < IngredientsDatas.values().length; i++) {
 
             IngredientsDatas.values()[i].addStocks(
                     Integer.parseInt(tableIngredients.getItems().get(i).getInput().getText())
@@ -123,11 +171,6 @@ public class MonitoringController implements Stageable, Initializable, Tools {
         stocksPane.setVisible(true);
     }
 
-    @FXML
-    public void majStocks(ActionEvent event) {
-
-
-    }
 
     @FXML
     public void generateList(ActionEvent event) {
@@ -136,7 +179,14 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     private void hidePanes() {
         performancePane.setVisible(false);
         stocksPane.setVisible(false);
+        employeePane.setVisible(false);
     }
 
 
+    @FXML
+    public void onEmploye(ActionEvent event) {
+        hidePanes();
+        employeePane.setVisible(true);
+        refreshEmployee();
+    }
 }
