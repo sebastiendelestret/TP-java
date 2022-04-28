@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import com.example.tpjavafx.Main;
 
 import static com.example.tpjavafx.Objects.Util.listTable;
+import static com.example.tpjavafx.Objects.Util.listEmploye;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +29,8 @@ public class CommandController implements Stageable, Initializable, Tools {
     @FXML
     private MenuButton tableMenuButton;
     @FXML
+    private MenuButton responsableMenu;
+    @FXML
     private MenuButton addPlatesList;
     @FXML
     private MenuButton addDrinksList;
@@ -40,9 +43,14 @@ public class CommandController implements Stageable, Initializable, Tools {
     private Button printNoteButton;
     @FXML
     private Button serveTableButton;
+    @FXML
+    private Button buttonDepart;
 
     @FXML
     private Label labelTable;
+
+    @FXML
+    private Label labelServer;
 
     private MenuItem newItem;
 
@@ -74,11 +82,14 @@ public class CommandController implements Stageable, Initializable, Tools {
         initializeTableDisplay();
         initializeButtonsDrinks();
         initializeButtonsPlates();
+        initializeResponsableMenu();
 
         addDrinksList.setVisible(false);
         addPlatesList.setVisible(false);
         printNoteButton.setVisible(false);
         serveTableButton.setVisible(false);
+        responsableMenu.setVisible(false);
+        buttonDepart.setVisible(false);
 
 
 
@@ -124,11 +135,8 @@ public class CommandController implements Stageable, Initializable, Tools {
                     chosenTable = table.getIdTable() - 1;
                     labelTable.setText("table " + (chosenTable + 1));
 
-                    addDrinksList.setVisible(true);
-                    addPlatesList.setVisible(true);
-                    printNoteButton.setVisible(true);
-                    serveTableButton.setVisible(true);
-                    displayChosenDishesDrinks();
+                    responsableMenu.setVisible(true);
+
                 }
             };
 
@@ -137,6 +145,43 @@ public class CommandController implements Stageable, Initializable, Tools {
             tableMenuButton.getItems().add(newItem);
         }
     }
+
+    private void initializeResponsableMenu(){
+        for(Employe employe:listEmploye){
+
+            if(employe.getPost() == Posts.Serveur.toString()){
+
+                EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        addDrinksList.setVisible(true);
+                        addPlatesList.setVisible(true);
+                        printNoteButton.setVisible(true);
+                        serveTableButton.setVisible(true);
+                        serveTableButton.setVisible(true);
+                        buttonDepart.setVisible(true);
+
+
+                        labelServer.setText(employe.getFirstname() + " " + employe.getName());
+                        listTable.get(chosenTable).setServer(employe);
+                        displayChosenDishesDrinks();
+
+                    }
+                };
+
+                newItem = new MenuItem(employe.getFirstname());
+                newItem.setOnAction(click);
+                responsableMenu.getItems().add(newItem);
+            }
+
+
+
+        }
+    }
+
+
+
+
     private void displayChosenDishesDrinks(){
         dishesListView.getItems().clear();
         for(DishesDatas data:listTable.get(chosenTable).getDishesList()){

@@ -13,7 +13,7 @@
 
         </items>
       </MenuButton>
-      <Label fx:id="labelTable" contentDisplay="TOP" layoutX="218.0" layoutY="32.0" prefHeight="45.0" prefWidth="165.0" text="Table X" textAlignment="CENTER">
+      <Label fx:id="labelTable" alignment="CENTER" contentDisplay="TOP" layoutX="248.0" layoutY="55.0" prefHeight="45.0" prefWidth="165.0" text="Table X" textAlignment="CENTER">
          <font>
             <Font size="27.0" />
          </font>
@@ -30,9 +30,15 @@
 
         </items>
       </MenuButton>
-      <Button fx:id="serveTableButton" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" onAction="#serveTable" prefHeight="25.0" prefWidth="115.0" text="Servir" />
-      <Button fx:id="printNoteButton" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#printNote" prefHeight="25.0" prefWidth="115.0" text="Imprimer note" />
-      <Button layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#departClients" prefHeight="25.0" prefWidth="115.0" text="départ clients" />
+      <Button fx:id="serveTableButton" layoutX="14.0" layoutY="208.0" mnemonicParsing="false" onAction="#serveTable" prefHeight="25.0" prefWidth="115.0" text="Servir" />
+      <Button fx:id="printNoteButton" layoutX="14.0" layoutY="242.0" mnemonicParsing="false" onAction="#printNote" prefHeight="25.0" prefWidth="115.0" text="Imprimer note" />
+      <Button fx:id="buttonDepart" layoutX="14.0" layoutY="275.0" mnemonicParsing="false" onAction="#departClients" prefHeight="25.0" prefWidth="115.0" text="départ clients" />
+      <MenuButton fx:id="responsableMenu" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Reponsable">
+        <items>
+
+        </items>
+      </MenuButton>
+      <Label fx:id="labelServer" layoutX="14.0" layoutY="143.0" prefHeight="17.0" prefWidth="115.0" />
 
    </children>
 </AnchorPane>

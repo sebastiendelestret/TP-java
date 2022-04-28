@@ -3,9 +3,7 @@ package com.example.tpjavafx.controller;
 import com.example.tpjavafx.Datas.DishesDatas;
 import com.example.tpjavafx.Datas.DrinksDatas;
 import com.example.tpjavafx.Datas.IngredientsDatas;
-import com.example.tpjavafx.Objects.Employe;
-import com.example.tpjavafx.Objects.Stageable;
-import com.example.tpjavafx.Objects.Tools;
+import com.example.tpjavafx.Objects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import com.example.tpjavafx.Main;
-import com.example.tpjavafx.Objects.SceneName;
 
 import java.io.IOException;
 import java.net.URL;
@@ -90,9 +87,8 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         refresh();
-        String[] posts = {"Cuisinier", "Barman", "Manager", "Serveur"};
-        for(String post:posts){
-            inputPost.getItems().add(post);
+        for(Posts post:Posts.values()){
+            inputPost.getItems().add(post.toString());
         }
 
     }

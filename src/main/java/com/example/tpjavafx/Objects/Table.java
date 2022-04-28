@@ -74,6 +74,10 @@ public class Table {
         return server;
     }
 
+    public void setServer(Employe server) {
+        this.server = server;
+    }
+
     public boolean isServed() {
         return served;
     }

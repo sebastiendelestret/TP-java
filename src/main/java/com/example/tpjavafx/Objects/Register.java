@@ -1,18 +1,22 @@
 package com.example.tpjavafx.Objects;
 
 import com.example.tpjavafx.Datas.IngredientsDatas;
+import javafx.util.Pair;
+
+import static com.example.tpjavafx.Objects.Util.listEmploye;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Register {
     private String ingredientFile = "src/main/resources/ingredients";
 
     public Register() {
-        readIngredientsStocks();
+        readFile();
     }
 
-    public void registerIngredientsStocks() {
+    public void registerFile() {
 
         try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(ingredientFile)))) {
             ArrayList<Integer>stocks = new ArrayList<Integer>();
@@ -20,6 +24,15 @@ public class Register {
                 stocks.add(datas.getStocks());
             }
             out.writeObject(stocks);
+
+            ArrayList<Pair<String,String>>Employees = new ArrayList<>();
+            for(Employe employe:listEmploye){
+                Employees.add(new Pair<>(employe.getName(), employe.getFirstname()));
+                System.out.println(employe.getName());
+            }
+            out.writeObject(Employees);
+
+
             System.out.println("File registered");
 
         } catch (FileNotFoundException e) {
@@ -29,13 +42,18 @@ public class Register {
         }
     }
 
-    public void readIngredientsStocks() {
+    public void readFile() {
         try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(ingredientFile)))) {
             ArrayList<Integer>stocks = (ArrayList<Integer>) in.readObject();
             for(int i =0; i<stocks.size(); i++){
                 IngredientsDatas.values()[i].setStocks(stocks.get(i));
             }
+            ArrayList<Pair<String,String>>Employees = (ArrayList<Pair<String, String>>) in.readObject();
+            for(Pair<String ,String> employee:Employees){
+                listEmploye.add(new Employe(employee.getKey(),employee.getValue(),Posts.Serveur.toString()));
+            }
             System.out.println("File read");
+
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
