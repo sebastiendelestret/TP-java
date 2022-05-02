@@ -13,14 +13,14 @@ public class Facture {
     private Map<DishesDatas, Integer> dishes = new HashMap<>();
     private Map<DrinksDatas, Integer> drinks = new HashMap<>();
     private int total;
-    private String dateHeure;
+    private int table;
+    private Date date;
 
 
     public Facture(ArrayList<DishesDatas> dishesList, ArrayList<DrinksDatas> drinksList, int table){
-        SimpleDateFormat formatter  = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Date date = new Date(System.currentTimeMillis());
-        this.dateHeure = formatter.format(date);
 
+        this.date = new Date(System.currentTimeMillis());
+        this.table = table;
 
         for(DishesDatas dishesDatas:DishesDatas.values()){
             this.dishes.put(dishesDatas,0);
@@ -58,5 +58,13 @@ public class Facture {
 
     public int getTotal() {
         return total;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getTable() {
+        return table;
     }
 }

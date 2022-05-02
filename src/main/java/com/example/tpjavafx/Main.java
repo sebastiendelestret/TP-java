@@ -1,9 +1,7 @@
 package com.example.tpjavafx;
 
-import com.example.tpjavafx.Objects.Register;
-import com.example.tpjavafx.Objects.SceneName;
+import com.example.tpjavafx.Objects.*;
 import com.example.tpjavafx.Screens.Principal;
-import com.example.tpjavafx.Objects.FxmlInfo;
 import com.example.tpjavafx.Objects.SceneName;
 
 import javafx.application.Application;
@@ -15,7 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main extends Application {
+public class Main extends Application implements FacturePrint {
 
     private static Principal screenMenu;
 
@@ -27,12 +25,13 @@ public class Main extends Application {
 
     private static Map<SceneName, FxmlInfo> scenes = new HashMap<>();
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
         Register fileRegister = new Register();
 
         launch();
 
+        FacturePrint.print();
         fileRegister.registerFile();
     }
 
