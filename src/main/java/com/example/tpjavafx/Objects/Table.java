@@ -5,8 +5,7 @@ import com.example.tpjavafx.Datas.DrinksDatas;
 
 import java.util.ArrayList;
 
-import static com.example.tpjavafx.Objects.Util.allServedDishes;
-import static com.example.tpjavafx.Objects.Util.allServedDrinks;
+import static com.example.tpjavafx.Objects.Util.factureList;
 
 public class Table {
 
@@ -37,8 +36,8 @@ public class Table {
 
     public void clientsLeave(){
         this.nbClients =0;
-        allServedDishes.addAll(servedDishesList);
-        allServedDrinks.addAll(servedDrinksList);
+        factureList.add(new Facture(servedDishesList, servedDrinksList, idTable));
+        this.server = null;
 
         dishesList.clear(); drinkList.clear(); servedDishesList.clear(); servedDrinksList.clear();
     }

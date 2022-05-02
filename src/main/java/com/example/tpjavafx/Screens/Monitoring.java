@@ -65,11 +65,7 @@ public class Monitoring implements Tools {
     public void displayListeCourse() {
         System.out.println("====== Liste de Course ======");
 
-        for (IngredientsDatas data : IngredientsDatas.values()) {
-            if (data.getStocks() <= 5) {
-                System.out.println(data.toString() + " x 20");
-            }
-        }
+
     }
 
     public void majIngredients() {

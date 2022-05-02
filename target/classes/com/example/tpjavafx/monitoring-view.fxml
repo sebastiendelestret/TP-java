@@ -14,7 +14,6 @@
           <Menu mnemonicParsing="false" text="Réserve">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#afficherStocks" text="Afficher stocks" />
-                  <MenuItem mnemonicParsing="false" onAction="#generateList" text="Générer liste de courses" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Employés">
@@ -36,7 +35,7 @@
          </children>
       </Pane>
       <Label layoutX="270.0" layoutY="33.0" text="Monitoring" />
-      <Pane fx:id="stocksPane" layoutX="93.0" layoutY="77.0" prefHeight="305.0" prefWidth="476.0" visible="false">
+      <Pane fx:id="stocksPane" layoutX="93.0" layoutY="77.0" prefHeight="305.0" prefWidth="476.0">
          <children>
             <TableView fx:id="tableIngredients" layoutY="6.0" prefHeight="254.0" prefWidth="408.0">
               <columns>
@@ -47,10 +46,11 @@
             </TableView>
             <Button layoutX="293.0" layoutY="259.0" mnemonicParsing="false" onAction="#refreshTable" text="refresh" />
             <Button layoutX="356.0" layoutY="259.0" mnemonicParsing="false" onAction="#remplirStocks" text="ajouter" />
+            <Button layoutX="192.0" layoutY="259.0" mnemonicParsing="false" onAction="#generateList" text="liste de course" />
          </children>
       </Pane>
       <Button layoutX="14.0" layoutY="29.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
-      <Pane fx:id="employeePane" layoutX="103.0" layoutY="87.0" prefHeight="305.0" prefWidth="476.0">
+      <Pane fx:id="employeePane" layoutX="103.0" layoutY="87.0" prefHeight="305.0" prefWidth="476.0" visible="false">
          <children>
             <TableView fx:id="tableEmployee" layoutX="14.0" layoutY="14.0" prefHeight="235.0" prefWidth="351.0">
               <columns>
@@ -59,11 +59,13 @@
                   <TableColumn fx:id="employeePost" minWidth="0.0" prefWidth="107.0" text="Post" />
               </columns>
             </TableView>
-            <Button layoutX="365.0" layoutY="224.0" mnemonicParsing="false" onAction="#refreshEmployee" text="refresh" />
+            <Button layoutX="365.0" layoutY="224.0" mnemonicParsing="false" onAction="#refreshEmployee" prefHeight="25.0" prefWidth="70.0" text="refresh" />
             <TextField fx:id="inputName" layoutX="14.0" layoutY="249.0" prefHeight="25.0" prefWidth="120.0" />
             <TextField fx:id="inputFirstName" layoutX="134.0" layoutY="249.0" prefHeight="25.0" prefWidth="95.0" />
-            <Button layoutX="365.0" layoutY="249.0" mnemonicParsing="false" onAction="#addEmployee" text="ajouter" />
+            <Button layoutX="365.0" layoutY="249.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="25.0" prefWidth="70.0" text="ajouter" />
             <ChoiceBox fx:id="inputPost" layoutX="229.0" layoutY="249.0" prefHeight="25.0" prefWidth="95.0" />
+            <Button layoutX="365.0" layoutY="199.0" mnemonicParsing="false" onAction="#validerPosts" prefHeight="25.0" prefWidth="70.0" text="Valider" />
+            <Button layoutX="365.0" layoutY="174.0" mnemonicParsing="false" onAction="#supprimer" text="supprimer" />
          </children></Pane>
    </children>
 </AnchorPane>

@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.AccessibleRole;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -20,11 +21,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.example.tpjavafx.Objects.Util.allServedDrinks;
-import static com.example.tpjavafx.Objects.Util.allServedDishes;
+import static com.example.tpjavafx.Objects.Util.factureList;
+
 import static com.example.tpjavafx.Objects.Util.listEmploye;
 
-public class MonitoringController implements Stageable, Initializable, Tools {
+public class MonitoringController implements Stageable, Initializable, Tools, ShoppingList {
 
     @FXML
     private TextField inputName;
@@ -76,7 +77,7 @@ public class MonitoringController implements Stageable, Initializable, Tools {
 
     @FXML
     private void refreshTable(ActionEvent event) {
-        refresh();
+        refreshStocks();
     }
 
     @Override
@@ -86,14 +87,14 @@ public class MonitoringController implements Stageable, Initializable, Tools {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refresh();
-        for(Posts post:Posts.values()){
+        refreshStocks();
+        for (Posts post : Posts.values()) {
             inputPost.getItems().add(post.toString());
         }
 
     }
 
-    private void refresh() {
+    private void refreshStocks() {
         tableIngredients.getItems().clear();
         for (IngredientsDatas data : IngredientsDatas.values()) {
             listIngredient.add(new ingredientItem(data.toString(), data.getStocks(), new TextField()));
@@ -105,12 +106,27 @@ public class MonitoringController implements Stageable, Initializable, Tools {
     }
 
     @FXML
+    private void validerPosts(ActionEvent event) {
+        for (employeeItem employee : tableEmployee.getItems()) {
+            listEmploye.get(listEmploye.indexOf(employee.getEmployee())).setPost(employee.getPost().getValue());
+        }
+        refreshEmployee();
+    }
+
+    @FXML
+    private void supprimer(ActionEvent event) {
+        listEmploye.remove(listEmploye.indexOf(tableEmployee.getSelectionModel().getSelectedItem().getEmployee()));
+        refreshEmployee();
+
+    }
+
+    @FXML
     private void refreshEmployee() {
         tableEmployee.getItems().clear();
         for (Employe employe : listEmploye) {
             System.out.println(employe.getName());
 
-            listEmployeeObservable.add(new employeeItem(employe.getName(), employe.getFirstname(), employe.getPost()));
+            listEmployeeObservable.add(new employeeItem(employe));
         }
         employeeName.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("name"));
         employeeFirstName.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("firstName"));
@@ -118,9 +134,11 @@ public class MonitoringController implements Stageable, Initializable, Tools {
         tableEmployee.setItems(listEmployeeObservable);
     }
 
-    @FXML private void addEmployee(ActionEvent event){
-        listEmploye.add(new Employe(inputName.getText(), inputFirstName.getText(), inputPost.getValue()));
-        inputFirstName.setText("");inputName.setText("");
+    @FXML
+    private void addEmployee(ActionEvent event) {
+        listEmploye.add(new Employe(inputName.getText(), inputFirstName.getText(), inputPost.getValue(), System.currentTimeMillis()));
+        inputFirstName.setText("");
+        inputName.setText("");
         refreshEmployee();
 
     }
@@ -134,13 +152,10 @@ public class MonitoringController implements Stageable, Initializable, Tools {
         int totalDrinks = 0;
         int totalSales = 0;
 
-        for (DishesDatas data : allServedDishes) {
-            totalDishes++;
-            totalSales += data.getPrice();
-        }
-        for (DrinksDatas data : allServedDrinks) {
-            totalDrinks++;
-            totalSales += data.getPrice();
+        for(Facture facture:factureList){
+            totalDishes+=facture.totalDishes();
+            totalDrinks+=facture.totalDrinks();
+            totalSales+=facture.getTotal();
         }
 
         labelDishes.setText(Integer.toString(totalDishes));
@@ -158,18 +173,20 @@ public class MonitoringController implements Stageable, Initializable, Tools {
                     Integer.parseInt(tableIngredients.getItems().get(i).getInput().getText())
             );
         }
-        refresh();
+        refreshStocks();
     }
 
     @FXML
     public void afficherStocks(ActionEvent event) {
         hidePanes();
+        refreshStocks();
         stocksPane.setVisible(true);
     }
 
 
     @FXML
     public void generateList(ActionEvent event) {
+        ShoppingList.create();
     }
 
     private void hidePanes() {

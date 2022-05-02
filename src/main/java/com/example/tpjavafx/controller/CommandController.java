@@ -61,7 +61,9 @@ public class CommandController implements Stageable, Initializable, Tools {
 
     @FXML
     private void departClients(ActionEvent event){
+
         listTable.get(chosenTable).clientsLeave();
+        initiatePage();
     }
 
     @FXML
@@ -79,6 +81,13 @@ public class CommandController implements Stageable, Initializable, Tools {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        initiatePage();
+
+
+
+    }
+
+    private void initiatePage(){
         initializeTableDisplay();
         initializeButtonsDrinks();
         initializeButtonsPlates();
@@ -91,11 +100,11 @@ public class CommandController implements Stageable, Initializable, Tools {
         responsableMenu.setVisible(false);
         buttonDepart.setVisible(false);
 
-
-
+        labelServer.setText("");
     }
 
     private void initializeButtonsDrinks(){
+        addDrinksList.getItems().clear();
         for(DrinksDatas drinks:DrinksDatas.values()){
             EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
                 @Override
@@ -112,30 +121,44 @@ public class CommandController implements Stageable, Initializable, Tools {
     }
 
     private void initializeButtonsPlates(){
+        addPlatesList.getItems().clear();
         for(DishesDatas dishes:DishesDatas.values()){
             EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    if (checkStocks(dishes))listTable.get(chosenTable).addDishes(dishes);
+                    if (checkStocks(dishes)){
+                        listTable.get(chosenTable).addDishes(dishes);
+                        consumeStocks(dishes);
+                    }
                     displayChosenDishesDrinks();
                 }
             };
 
             newItem = new MenuItem(dishes.toString());
             newItem.setOnAction(eventClick);
+            if(!checkStocks(dishes)){
+                newItem.setDisable(true);
+            }
+
             addPlatesList.getItems().add(newItem);
         }
     }
 
     private void initializeTableDisplay(){
+        tableMenuButton.getItems().clear();
         for (Table table : listTable) {
             EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    initiatePage();
                     chosenTable = table.getIdTable() - 1;
                     labelTable.setText("table " + (chosenTable + 1));
 
-                    responsableMenu.setVisible(true);
+
+                    if(listTable.get(chosenTable).getServer() == null){
+                        responsableMenu.setVisible(true);
+                    }
+                    else displayAll();
 
                 }
             };
@@ -146,7 +169,20 @@ public class CommandController implements Stageable, Initializable, Tools {
         }
     }
 
+    private void displayAll(){
+        addDrinksList.setVisible(true);
+        addPlatesList.setVisible(true);
+        printNoteButton.setVisible(true);
+        serveTableButton.setVisible(true);
+        serveTableButton.setVisible(true);
+        buttonDepart.setVisible(true);
+        labelServer.setText(listTable.get(chosenTable).getServer().getFirstname() + " " + listTable.get(chosenTable).getServer().getName());
+        displayChosenDishesDrinks();
+
+    }
+
     private void initializeResponsableMenu(){
+        responsableMenu.getItems().clear();
         for(Employe employe:listEmploye){
 
             if(employe.getPost() == Posts.Serveur.toString()){
@@ -154,17 +190,10 @@ public class CommandController implements Stageable, Initializable, Tools {
                 EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        addDrinksList.setVisible(true);
-                        addPlatesList.setVisible(true);
-                        printNoteButton.setVisible(true);
-                        serveTableButton.setVisible(true);
-                        serveTableButton.setVisible(true);
-                        buttonDepart.setVisible(true);
 
 
-                        labelServer.setText(employe.getFirstname() + " " + employe.getName());
                         listTable.get(chosenTable).setServer(employe);
-                        displayChosenDishesDrinks();
+                        displayAll();
 
                     }
                 };
@@ -207,11 +236,14 @@ public class CommandController implements Stageable, Initializable, Tools {
                 return false;
             }
         }
+
+        return true;
+    }
+
+    private void consumeStocks(DishesDatas dish){
         for(IngredientsDatas ingredient:dish.getIngredients()){
             ingredient.setStocks(ingredient.getStocks()-1);
         }
-        return true;
-
     }
 
 

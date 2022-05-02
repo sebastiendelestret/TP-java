@@ -28,7 +28,6 @@ public class Register {
             ArrayList<Pair<String,String>>Employees = new ArrayList<>();
             for(Employe employe:listEmploye){
                 Employees.add(new Pair<>(employe.getName(), employe.getFirstname()));
-                System.out.println(employe.getName());
             }
             out.writeObject(Employees);
 
@@ -50,7 +49,7 @@ public class Register {
             }
             ArrayList<Pair<String,String>>Employees = (ArrayList<Pair<String, String>>) in.readObject();
             for(Pair<String ,String> employee:Employees){
-                listEmploye.add(new Employe(employee.getKey(),employee.getValue(),Posts.Serveur.toString()));
+                listEmploye.add(new Employe(employee.getKey(),employee.getValue(),"",System.currentTimeMillis()));
             }
             System.out.println("File read");
 
