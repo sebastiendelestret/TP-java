@@ -1,5 +1,9 @@
 package com.example.tpjavafx.Datas;
 
+/**
+ * Enumeration de toutes les boissons disponible en vente et leur prix
+ */
+
 public enum DrinksDatas {
     LIMONADE(4),
     CIDRE_DOUX(5),

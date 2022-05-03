@@ -1,5 +1,9 @@
 package com.example.tpjavafx.Datas;
 
+/**
+ * Enumération détaillant les différents ingrédients avec les stocks restant
+ */
+
 public enum IngredientsDatas {
     SALADE(0),
     TOMATE(0),

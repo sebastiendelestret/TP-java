@@ -1,29 +1,24 @@
 package com.example.tpjavafx.controller;
 
+import com.example.tpjavafx.Main;
 import com.example.tpjavafx.Objects.Employe;
+import com.example.tpjavafx.Objects.Posts;
+import com.example.tpjavafx.Objects.SceneName;
 import com.example.tpjavafx.Objects.Stageable;
 import com.example.tpjavafx.Screens.Principal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
-
-import com.example.tpjavafx.Main;
-import com.example.tpjavafx.Objects.SceneName;
-import com.example.tpjavafx.Objects.Stageable;
-import com.example.tpjavafx.Objects.Posts;
 
 import static com.example.tpjavafx.Objects.Util.listEmploye;
 
+/**
+ * Controller de la page principale
+ * Permet de naviguer entre les différents écrans
+ */
 
 public class HelloController implements Stageable {
 
@@ -69,21 +64,16 @@ public class HelloController implements Stageable {
     @FXML
     public void lancerCuisine(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.CUISINE).getScene());
-
-
     }
-
 
     @FXML
     public void lancerBar(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.BAR).getScene());
-
     }
 
     @FXML
     public void lancerMonitoring(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.MONITORING).getScene());
-
     }
 
 

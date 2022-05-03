@@ -21,7 +21,7 @@ public interface ShoppingList {
 
     static void create() {
         Date date = new Date(System.currentTimeMillis());
-        String filename = "src/main/resources/list_" + formatter.format(date) + ".txt";
+        String filename = "src/main/resources/Listes/list_" + formatter.format(date) + ".txt";
         try (BufferedWriter writer = Files.newBufferedWriter(Path.of(filename), charset)) {
             writer.write("Liste du " + formatter.format(date) + "\n\n");
             for (IngredientsDatas data : IngredientsDatas.values()) {

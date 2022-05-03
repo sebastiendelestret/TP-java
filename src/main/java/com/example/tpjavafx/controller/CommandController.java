@@ -3,6 +3,7 @@ package com.example.tpjavafx.controller;
 import com.example.tpjavafx.Datas.DishesDatas;
 import com.example.tpjavafx.Datas.DrinksDatas;
 import com.example.tpjavafx.Datas.IngredientsDatas;
+import com.example.tpjavafx.Main;
 import com.example.tpjavafx.Objects.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,14 +12,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import com.example.tpjavafx.Main;
-
-import static com.example.tpjavafx.Objects.Util.listTable;
-import static com.example.tpjavafx.Objects.Util.listEmploye;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.example.tpjavafx.Objects.Util.listEmploye;
+import static com.example.tpjavafx.Objects.Util.listTable;
+
+/**
+ * Controller de l'écran command
+ */
 
 public class CommandController implements Stageable, Initializable, Tools {
 
@@ -56,28 +59,25 @@ public class CommandController implements Stageable, Initializable, Tools {
     private MenuItem newItem;
 
     @FXML
-    private void printNote(ActionEvent event){
+    private void printNote(ActionEvent event) {
         Tools.printNote(chosenTable);
     }
 
     @FXML
-    private void departClients(ActionEvent event){
-
+    private void departClients(ActionEvent event) {
         listTable.get(chosenTable).clientsLeave();
         initiatePage();
     }
 
     @FXML
-    private void serveTable(ActionEvent event){
+    private void serveTable(ActionEvent event) {
         listTable.get(chosenTable).serveClients();
         displayChosenDishesDrinks();
     }
 
     @FXML
-    private void menuCentAnsAction(){
-        System.out.println("commande menu 100ans");
+    private void menuCentAnsAction() {
         listTable.get(chosenTable).addDishes(DishesDatas.CENTS_ANS);
-
     }
 
     @FXML
@@ -85,17 +85,15 @@ public class CommandController implements Stageable, Initializable, Tools {
         stage.setScene(Main.getScenes().get(SceneName.MAIN).getScene());
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         initiatePage();
-
-
-
     }
 
-    private void initiatePage(){
+    /**
+     * Initialisation, tant qu'aucune table n'est choisie aucun bouton ne s'affiche
+     */
+    private void initiatePage() {
         initializeTableDisplay();
         initializeButtonsDrinks();
         initializeButtonsPlates();
@@ -112,9 +110,55 @@ public class CommandController implements Stageable, Initializable, Tools {
         labelServer.setText("");
     }
 
-    private void initializeButtonsDrinks(){
+    /**
+     * Affiche le menu de sélection de la table
+     */
+    private void initializeTableDisplay() {
+        tableMenuButton.getItems().clear();
+        for (Table table : listTable) {
+            EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    initiatePage();
+                    chosenTable = table.getIdTable() - 1;
+                    labelTable.setText("table " + (chosenTable + 1));
+
+
+                    if (listTable.get(chosenTable).getServer() == null) {
+                        responsableMenu.setVisible(true);
+                    } else displayAll();
+
+                }
+            };
+
+            newItem = new MenuItem("table " + table.getIdTable() + " | " + table.getNbPlaces() + " places");
+            newItem.setOnAction(eventClick);
+            tableMenuButton.getItems().add(newItem);
+        }
+    }
+
+    /**
+     * Une fois que la table est choisie on affiche tous les boutons
+     */
+    private void displayAll() {
+        addDrinksList.setVisible(true);
+        addPlatesList.setVisible(true);
+        printNoteButton.setVisible(true);
+        serveTableButton.setVisible(true);
+        serveTableButton.setVisible(true);
+        buttonDepart.setVisible(true);
+        menucentans.setVisible(true);
+        labelServer.setText(listTable.get(chosenTable).getServer().getFirstname() + " " + listTable.get(chosenTable).getServer().getName());
+        displayChosenDishesDrinks();
+
+    }
+
+    /**
+     * Affiche le menu des choix de boissons
+     */
+    private void initializeButtonsDrinks() {
         addDrinksList.getItems().clear();
-        for(DrinksDatas drinks:DrinksDatas.values()){
+        for (DrinksDatas drinks : DrinksDatas.values()) {
             EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -129,82 +173,50 @@ public class CommandController implements Stageable, Initializable, Tools {
         }
     }
 
-    private void initializeButtonsPlates(){
+    /**
+     * Affiche le menu des plats
+     * A l'exception du menu CENT ans qui à un fonctionnement différent
+     */
+    private void initializeButtonsPlates() {
         addPlatesList.getItems().clear();
-        for(DishesDatas dishes:DishesDatas.values()){
-            EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    if (checkStocks(dishes)){
-                        listTable.get(chosenTable).addDishes(dishes);
-                        consumeStocks(dishes);
+        for (DishesDatas dishes : DishesDatas.values()) {
+            if (dishes != DishesDatas.CENTS_ANS) {
+                EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        if (checkStocks(dishes)) {
+                            listTable.get(chosenTable).addDishes(dishes);
+                            consumeStocks(dishes);
+                        }
+                        displayChosenDishesDrinks();
                     }
-                    displayChosenDishesDrinks();
-                }
-            };
+                };
 
-            newItem = new MenuItem(dishes.toString());
-            newItem.setOnAction(eventClick);
-            if(!checkStocks(dishes)){
-                newItem.setDisable(true);
+                newItem = new MenuItem(dishes.toString());
+                newItem.setOnAction(eventClick);
+                if (!checkStocks(dishes)) {
+                    newItem.setDisable(true);
+                }
+
+                addPlatesList.getItems().add(newItem);
             }
-
-            addPlatesList.getItems().add(newItem);
         }
     }
 
-    private void initializeTableDisplay(){
-        tableMenuButton.getItems().clear();
-        for (Table table : listTable) {
-            EventHandler<ActionEvent> eventClick = new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    initiatePage();
-                    chosenTable = table.getIdTable() - 1;
-                    labelTable.setText("table " + (chosenTable + 1));
-
-
-                    if(listTable.get(chosenTable).getServer() == null){
-                        responsableMenu.setVisible(true);
-                    }
-                    else displayAll();
-
-                }
-            };
-
-            newItem = new MenuItem("table " + table.getIdTable() + " | " + table.getNbPlaces() + " places");
-            newItem.setOnAction(eventClick);
-            tableMenuButton.getItems().add(newItem);
-        }
-    }
-
-    private void displayAll(){
-        addDrinksList.setVisible(true);
-        addPlatesList.setVisible(true);
-        printNoteButton.setVisible(true);
-        serveTableButton.setVisible(true);
-        serveTableButton.setVisible(true);
-        buttonDepart.setVisible(true);
-        menucentans.setVisible(true);
-        labelServer.setText(listTable.get(chosenTable).getServer().getFirstname() + " " + listTable.get(chosenTable).getServer().getName());
-        displayChosenDishesDrinks();
-
-    }
-
-    private void initializeResponsableMenu(){
+    /**
+     * Menu de sélection du serveur qui s'occupe de la table
+     */
+    private void initializeResponsableMenu() {
         responsableMenu.getItems().clear();
-        for(Employe employe:listEmploye){
+        for (Employe employe : listEmploye) {
 
-            if(employe.getPost() == Posts.Serveur.toString()){
+            if (employe.getPost() == Posts.Serveur.toString()) {
 
                 EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
-
                         listTable.get(chosenTable).setServer(employe);
                         displayAll();
-
                     }
                 };
 
@@ -214,20 +226,19 @@ public class CommandController implements Stageable, Initializable, Tools {
             }
 
 
-
         }
     }
 
-
-
-
-    private void displayChosenDishesDrinks(){
+    /**
+     * Affichage des commande en attente d'être servie
+     */
+    private void displayChosenDishesDrinks() {
         dishesListView.getItems().clear();
-        for(DishesDatas data:listTable.get(chosenTable).getDishesList()){
+        for (DishesDatas data : listTable.get(chosenTable).getDishesList()) {
             dishesListView.getItems().add(data.toString());
         }
         drinkListView.getItems().clear();
-        for(DrinksDatas data:listTable.get(chosenTable).getDrinkList()){
+        for (DrinksDatas data : listTable.get(chosenTable).getDrinkList()) {
             drinkListView.getItems().add(data.toString());
         }
 
@@ -239,10 +250,10 @@ public class CommandController implements Stageable, Initializable, Tools {
         this.stage = stage;
     }
 
-    public boolean checkStocks(DishesDatas dish){
+    public boolean checkStocks(DishesDatas dish) {
 
-        for(IngredientsDatas ingredient:dish.getIngredients()){
-            if(ingredient.getStocks()<1){
+        for (IngredientsDatas ingredient : dish.getIngredients()) {
+            if (ingredient.getStocks() < 1) {
                 return false;
             }
         }
@@ -250,12 +261,11 @@ public class CommandController implements Stageable, Initializable, Tools {
         return true;
     }
 
-    private void consumeStocks(DishesDatas dish){
-        for(IngredientsDatas ingredient:dish.getIngredients()){
-            ingredient.setStocks(ingredient.getStocks()-1);
+    private void consumeStocks(DishesDatas dish) {
+        for (IngredientsDatas ingredient : dish.getIngredients()) {
+            ingredient.setStocks(ingredient.getStocks() - 1);
         }
     }
-
 
 
 }

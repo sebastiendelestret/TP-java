@@ -1,29 +1,30 @@
 package com.example.tpjavafx.controller;
 
-import com.example.tpjavafx.Datas.DishesDatas;
-import com.example.tpjavafx.Datas.DrinksDatas;
 import com.example.tpjavafx.Datas.IngredientsDatas;
+import com.example.tpjavafx.Main;
 import com.example.tpjavafx.Objects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.AccessibleRole;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import com.example.tpjavafx.Main;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static com.example.tpjavafx.Objects.Util.factureList;
-
 import static com.example.tpjavafx.Objects.Util.listEmploye;
+
+/**
+ * MonitoringController est le controller de la page fxml controller
+ * On y retrouve l'aperçu des performance de la journée, la gestion des employés,
+ * la gestion des stocks.
+ */
 
 public class MonitoringController implements Stageable, Initializable, Tools, ShoppingList {
 
@@ -47,7 +48,9 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
     private Pane employeePane;
     private Stage stage;
 
-
+    /**
+     * Variables associées au tableau d'ingrédients pour la gestion des stocks
+     */
     @FXML
     private TableView<ingredientItem> tableIngredients;
     @FXML
@@ -57,6 +60,9 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
     @FXML
     private TableColumn<ingredientItem, TextField> addStocks;
 
+    /**
+     * Variables associées au tableau d'employés pour la gestion des employés
+     */
     @FXML
     private TableView<employeeItem> tableEmployee;
     @FXML
@@ -70,19 +76,12 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
 
     public ObservableList<employeeItem> listEmployeeObservable = FXCollections.observableArrayList();
 
+    /**
+     * A l'appui du boutton, renvoie vers la page principale
+     */
     @FXML
     private void retour(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.MAIN).getScene());
-    }
-
-    @FXML
-    private void refreshTable(ActionEvent event) {
-        refreshStocks();
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @Override
@@ -94,76 +93,32 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
 
     }
 
+
+    /**
+     * Les fonctions suivantes servent à la gestion des stocks
+     */
+    @FXML
+    private void refreshTable(ActionEvent event) {
+        refreshStocks();
+    }
+
+    /**
+     * Permet d'actualiser le tableau d'ingrédients
+     */
     private void refreshStocks() {
         tableIngredients.getItems().clear();
         for (IngredientsDatas data : IngredientsDatas.values()) {
             listIngredient.add(new ingredientItem(data.toString(), data.getStocks(), new TextField()));
         }
-        name.setCellValueFactory(new PropertyValueFactory<ingredientItem, String>("name"));
-        stocks.setCellValueFactory(new PropertyValueFactory<ingredientItem, Integer>("stocks"));
-        addStocks.setCellValueFactory(new PropertyValueFactory<ingredientItem, TextField>("input"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        stocks.setCellValueFactory(new PropertyValueFactory<>("stocks"));
+        addStocks.setCellValueFactory(new PropertyValueFactory<>("input"));
         tableIngredients.setItems(listIngredient);
     }
 
-    @FXML
-    private void validerPosts(ActionEvent event) {
-        for (employeeItem employee : tableEmployee.getItems()) {
-            listEmploye.get(listEmploye.indexOf(employee.getEmployee())).setPost(employee.getPost().getValue());
-        }
-        refreshEmployee();
-    }
-
-    @FXML
-    private void supprimer(ActionEvent event) {
-        listEmploye.remove(listEmploye.indexOf(tableEmployee.getSelectionModel().getSelectedItem().getEmployee()));
-        refreshEmployee();
-
-    }
-
-    @FXML
-    private void refreshEmployee() {
-        tableEmployee.getItems().clear();
-        for (Employe employe : listEmploye) {
-
-            listEmployeeObservable.add(new employeeItem(employe));
-        }
-        employeeName.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("name"));
-        employeeFirstName.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("firstName"));
-        employeePost.setCellValueFactory(new PropertyValueFactory<employeeItem, String>("post"));
-        tableEmployee.setItems(listEmployeeObservable);
-    }
-
-    @FXML
-    private void addEmployee(ActionEvent event) {
-        listEmploye.add(new Employe(inputName.getText(), inputFirstName.getText(), inputPost.getValue(), System.currentTimeMillis()));
-        inputFirstName.setText("");
-        inputName.setText("");
-        refreshEmployee();
-
-    }
-
-    @FXML
-    public void performances(ActionEvent event) {
-        hidePanes();
-        performancePane.setVisible(true);
-
-        int totalDishes = 0;
-        int totalDrinks = 0;
-        int totalSales = 0;
-
-        for(Facture facture:factureList){
-            totalDishes+=facture.totalDishes();
-            totalDrinks+=facture.totalDrinks();
-            totalSales+=facture.getTotal();
-        }
-
-        labelDishes.setText(Integer.toString(totalDishes));
-        labelDrinks.setText(Integer.toString(totalDrinks));
-        labelSales.setText(Integer.toString(totalSales) + "€");
-
-
-    }
-
+    /**
+     * Permet de remplir les stocks d'ingrédients avec les quantitées indiquées dans le formulaire
+     */
     @FXML
     void remplirStocks(ActionEvent event) {
         for (int i = 0; i < IngredientsDatas.values().length; i++) {
@@ -175,6 +130,95 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
         refreshStocks();
     }
 
+
+    /**
+     * Les fonctions suivantes servent à la gestion des employés
+     * <p>
+     * Valider Posts permet de sauvegarder les posts indiqués par l'utilisateur pour chaque employé
+     */
+    @FXML
+    private void validerPosts(ActionEvent event) {
+        for (employeeItem employee : tableEmployee.getItems()) {
+            listEmploye.get(listEmploye.indexOf(employee.getEmployee())).setPost(employee.getPost().getValue());
+        }
+        refreshEmployee();
+    }
+
+    /**
+     * Supprime l'employé selectionné dans le tableau
+     */
+    @FXML
+    private void supprimer(ActionEvent event) {
+        listEmploye.remove(tableEmployee.getSelectionModel().getSelectedItem().getEmployee());
+        refreshEmployee();
+
+    }
+
+    /**
+     * Crée un nouvel employé à partir du formulaire
+     */
+    @FXML
+    private void addEmployee(ActionEvent event) {
+        listEmploye.add(new Employe(inputName.getText(), inputFirstName.getText(), inputPost.getValue(), System.currentTimeMillis()));
+        inputFirstName.setText("");
+        inputName.setText("");
+        refreshEmployee();
+
+    }
+
+    /**
+     * Actualise le tableau d'employés
+     */
+    @FXML
+    private void refreshEmployee() {
+        tableEmployee.getItems().clear();
+        for (Employe employe : listEmploye) {
+
+            listEmployeeObservable.add(new employeeItem(employe));
+        }
+        employeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        employeeFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        employeePost.setCellValueFactory(new PropertyValueFactory<>("post"));
+        tableEmployee.setItems(listEmployeeObservable);
+    }
+
+    /**
+     * Performances donne les indicateur de performance du restaurant sur la journée en cours
+     */
+    @FXML
+    public void performances(ActionEvent event) {
+        hidePanes();
+        performancePane.setVisible(true);
+
+        int totalDishes = 0;
+        int totalDrinks = 0;
+        int totalSales = 0;
+
+        for (Facture facture : factureList) {
+            totalDishes += facture.totalDishes();
+            totalDrinks += facture.totalDrinks();
+            totalSales += facture.getTotal();
+        }
+
+        labelDishes.setText(Integer.toString(totalDishes));
+        labelDrinks.setText(Integer.toString(totalDrinks));
+        labelSales.setText(totalSales + "€");
+
+
+    }
+
+    /**
+     * A l'appui du bouton, imprime une liste de course
+     */
+    @FXML
+    public void generateList(ActionEvent event) {
+        ShoppingList.create();
+    }
+
+
+    /**
+     * Les fonctions suivantes permettent de naviguer entre les différents panel de la page monitoring
+     */
     @FXML
     public void afficherStocks(ActionEvent event) {
         hidePanes();
@@ -182,10 +226,11 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
         stocksPane.setVisible(true);
     }
 
-
     @FXML
-    public void generateList(ActionEvent event) {
-        ShoppingList.create();
+    public void onEmploye(ActionEvent event) {
+        hidePanes();
+        employeePane.setVisible(true);
+        refreshEmployee();
     }
 
     private void hidePanes() {
@@ -194,11 +239,8 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
         employeePane.setVisible(false);
     }
 
-
-    @FXML
-    public void onEmploye(ActionEvent event) {
-        hidePanes();
-        employeePane.setVisible(true);
-        refreshEmployee();
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

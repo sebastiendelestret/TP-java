@@ -1,17 +1,24 @@
 package com.example.tpjavafx;
 
-import com.example.tpjavafx.Objects.*;
-import com.example.tpjavafx.Screens.Principal;
+import com.example.tpjavafx.Objects.FacturePrint;
+import com.example.tpjavafx.Objects.FxmlInfo;
+import com.example.tpjavafx.Objects.Register;
 import com.example.tpjavafx.Objects.SceneName;
-
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * <h1>TP2 JAVA</h1>
+ * <p>L'objectif était de créer un logiciel de gestion d'un restaurant permettant d'automatiser certaines tâches.</p>
+ *
+ * Réalisation :
+ *      <li><a href="https://github.com/PierreLouisF">Pierre-Louis Fournet</a></li>
+ *      <li><a href="https://github.com/sebastiendelestret">Sébastien Delestret</a></li>
+ */
 
 public class Main extends Application implements FacturePrint {
 

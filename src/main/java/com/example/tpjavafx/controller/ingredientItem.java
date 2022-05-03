@@ -2,6 +2,10 @@ package com.example.tpjavafx.controller;
 
 import javafx.scene.control.TextField;
 
+/**
+ * La class ingrédientItem décris un ingrédient pour être afficher dans un tableau avec javafx
+ */
+
 public class ingredientItem {
     private final String name;
     private final int stocks;

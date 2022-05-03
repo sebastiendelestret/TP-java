@@ -6,13 +6,13 @@ import javafx.scene.control.ChoiceBox;
 
 public class employeeItem {
 
-    private Employe employee;
-    private ChoiceBox<String> post;
+    private final Employe employee;
+    private final ChoiceBox<String> post;
 
     public employeeItem(Employe employee) {
         this.employee = employee;
         this.post = new ChoiceBox<String>();
-        for(Posts posts:Posts.values()){
+        for (Posts posts : Posts.values()) {
             this.post.getItems().add(posts.toString());
         }
         this.post.setValue(employee.getPost());
