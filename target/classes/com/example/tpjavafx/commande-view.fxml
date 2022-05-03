@@ -30,6 +30,7 @@
 
         </items>
       </MenuButton>
+      <Button fx:id="menucentans"  layoutX="14.0" layoutY="175.0" mnemonicParsing="false" onAction="#menuCentAnsAction" prefHeight="25.0" prefWidth="115.0" text="Menu Cent ans" />
       <Button fx:id="serveTableButton" layoutX="14.0" layoutY="208.0" mnemonicParsing="false" onAction="#serveTable" prefHeight="25.0" prefWidth="115.0" text="Servir" />
       <Button fx:id="printNoteButton" layoutX="14.0" layoutY="242.0" mnemonicParsing="false" onAction="#printNote" prefHeight="25.0" prefWidth="115.0" text="Imprimer note" />
       <Button fx:id="buttonDepart" layoutX="14.0" layoutY="275.0" mnemonicParsing="false" onAction="#departClients" prefHeight="25.0" prefWidth="115.0" text="départ clients" />
@@ -38,7 +39,7 @@
 
         </items>
       </MenuButton>
-      <Label fx:id="labelServer" layoutX="14.0" layoutY="143.0" prefHeight="17.0" prefWidth="115.0" />
+      <Label fx:id="labelServer" layoutX="15.0" layoutY="133.0" prefHeight="17.0" prefWidth="115.0" />
 
    </children>
 </AnchorPane>

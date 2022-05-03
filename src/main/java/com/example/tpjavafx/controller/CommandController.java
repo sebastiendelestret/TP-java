@@ -45,6 +45,8 @@ public class CommandController implements Stageable, Initializable, Tools {
     private Button serveTableButton;
     @FXML
     private Button buttonDepart;
+    @FXML
+    private Button menucentans;
 
     @FXML
     private Label labelTable;
@@ -70,6 +72,23 @@ public class CommandController implements Stageable, Initializable, Tools {
     private void serveTable(ActionEvent event){
         listTable.get(chosenTable).serveClients();
         displayChosenDishesDrinks();
+    }
+
+    @FXML
+    private void menuCentAnsAction(){
+        System.out.println("commande menu 100ans");
+        int price = 0;
+        for(int i = listTable.get(chosenTable).getDishesList().size(); i >= listTable.get(chosenTable).getDishesList().size()-7;i--) {
+            if(listTable.get(chosenTable).getDishesList().get(i) != null) {
+                System.out.print(listTable.get(chosenTable).getDishesList().get(i));
+                price += listTable.get(chosenTable).getDishesList().get(i).getPrice();
+            }
+        }
+        for(int i = listTable.get(chosenTable).getDrinkList().size()+1; i < listTable.get(chosenTable).getDrinkList().size()+7;i++) {
+
+        }
+
+        System.out.println(price);
     }
 
     @FXML
@@ -99,6 +118,7 @@ public class CommandController implements Stageable, Initializable, Tools {
         serveTableButton.setVisible(false);
         responsableMenu.setVisible(false);
         buttonDepart.setVisible(false);
+        menucentans.setVisible(false);
 
         labelServer.setText("");
     }
@@ -176,6 +196,7 @@ public class CommandController implements Stageable, Initializable, Tools {
         serveTableButton.setVisible(true);
         serveTableButton.setVisible(true);
         buttonDepart.setVisible(true);
+        menucentans.setVisible(true);
         labelServer.setText(listTable.get(chosenTable).getServer().getFirstname() + " " + listTable.get(chosenTable).getServer().getName());
         displayChosenDishesDrinks();
 
@@ -245,6 +266,7 @@ public class CommandController implements Stageable, Initializable, Tools {
             ingredient.setStocks(ingredient.getStocks()-1);
         }
     }
+
 
 
 }
