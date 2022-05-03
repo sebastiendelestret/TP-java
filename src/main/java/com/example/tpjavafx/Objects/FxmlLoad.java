@@ -6,10 +6,15 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
+/**
+ * La classe FxmlLoad sert à créer une scène à partir d'un fichier .fxml
+ */
+
 public class FxmlLoad {
 
+
     public Scene load(FxmlInfo fxmlInfo) throws IOException {
-        if (fxmlInfo.hasScene()){
+        if (fxmlInfo.hasScene()) {
             return fxmlInfo.getScene();
         }
 
@@ -27,4 +32,5 @@ public class FxmlLoad {
         return scene;
 
     }
+
 }

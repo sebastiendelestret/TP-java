@@ -16,7 +16,9 @@ public enum IngredientsDatas {
 
     private int stocks;
 
-    IngredientsDatas(int stocks) {this.stocks = stocks; }
+    IngredientsDatas(int stocks) {
+        this.stocks = stocks;
+    }
 
     public int getStocks() {
         return stocks;

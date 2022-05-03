@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class Main extends Application implements FacturePrint {
 
-    private static Principal screenMenu;
 
     private static final String mainFXML = "hello-view.fxml";
     private static final String commandFXML = "commande-view.fxml";
@@ -38,6 +37,7 @@ public class Main extends Application implements FacturePrint {
 
     @Override
     public void start(Stage stage) throws IOException {
+
 
         scenes.put(SceneName.MAIN, new FxmlInfo(mainFXML, SceneName.MAIN, stage));
         scenes.put(SceneName.COMMAND, new FxmlInfo(commandFXML, SceneName.COMMAND, stage));

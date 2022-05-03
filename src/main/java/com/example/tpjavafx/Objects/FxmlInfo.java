@@ -12,6 +12,13 @@ import java.io.IOException;
 
 public class FxmlInfo {
 
+    /**
+     * La classe FxmlInfo regroupe toutes les informations nécessaires d'une scène
+     * pour qu'elles puissent être appelées facilement quand on en a besoin et donc
+     * passer d'un écran à un autre
+     */
+
+
     private String ressourceName;
     private SceneName sceneName;
     private Stage stage;

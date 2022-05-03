@@ -7,11 +7,9 @@ import static com.example.tpjavafx.Objects.Util.listTable;
 
 public class Principal implements Tools {
 
-    private Monitoring monitoring = new Monitoring();
 
     public Principal(){
         this.createTables(8);
-
     }
 
     private void createTables(int numberTable){
@@ -19,8 +17,5 @@ public class Principal implements Tools {
             listTable.add(new Table(Tools.getRandInt(2,8), (i+1)));
         }
     }
-
-
-
 
 }

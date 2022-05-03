@@ -1,6 +1,9 @@
 package com.example.tpjavafx.Objects;
 
-import com.example.tpjavafx.Main;
+/**
+ * Enumération contenant le noms de tous les écrans existant
+ */
+
 public enum SceneName {
-    MAIN, COMMAND, BAR, CUISINE,MONITORING;
+    MAIN, COMMAND, BAR, CUISINE,MONITORING
 }

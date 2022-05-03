@@ -11,21 +11,25 @@ import java.util.Date;
 
 import static com.example.tpjavafx.Objects.Util.factureList;
 
+/**
+ * Interface permettant d'imprimer (au format .txt) toutes les factures de la journée
+ */
+
 public interface FacturePrint {
     Charset charset = StandardCharsets.UTF_8;
-    SimpleDateFormat formatter  = new SimpleDateFormat("dd-MM-yyyy");
-    SimpleDateFormat formatterDateHour  = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm");
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat formatterDateHour = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm");
 
 
-    static void print() throws IOException {
+    static void print() {
         Date date = new Date(System.currentTimeMillis());
         String filename = "src/main/resources/factures/" + formatter.format(date) + ".txt";
-        try(BufferedWriter writer = Files.newBufferedWriter(Path.of(filename),charset)){
-            for(Facture facture:factureList){
+        try (BufferedWriter writer = Files.newBufferedWriter(Path.of(filename), charset)) {
+            for (Facture facture : factureList) {
                 String dateFacture = formatterDateHour.format(facture.getDate());
-                writer.write(dateFacture + "\ttable "+facture.getTable()+ "\t"+facture.getTotal()+"€\n");
+                writer.write(dateFacture + "\ttable " + facture.getTable() + "\t" + facture.getTotal() + "€\n");
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
