@@ -29,13 +29,23 @@ public class Facture {
             this.drinks.put(drinksDatas,0);
         }
 
+        int dishes100 =0;
+        int drinks100 = 0;
         for(DishesDatas dishesDatas:dishesList){
             this.dishes.put(dishesDatas, dishes.get(dishesDatas)+1);
-            total+=dishesDatas.getPrice();
+            if(dishesDatas == DishesDatas.CENTS_ANS){
+                total+= dishesDatas.getPrice();
+                dishes100=7;
+                drinks100=7;
+            }
+            else if(dishes100>0)dishes100--;
+            else total+=dishesDatas.getPrice();
         }
+
         for(DrinksDatas drinksDatas:drinksList){
             this.drinks.put(drinksDatas, drinks.get(drinksDatas)+1);
-            total+=drinksDatas.getPrice();
+            if(drinks100>0)drinks100--;
+            else total+=drinksDatas.getPrice();
 
         }
     }

@@ -17,7 +17,9 @@ public enum DishesDatas {
     PIZZA_CHORIZO(8,new IngredientsDatas[]{IngredientsDatas.PATE,IngredientsDatas.TOMATE,IngredientsDatas.FROMAGE,IngredientsDatas.CHORIZO}),
 
     FAJITAS_POULET(11,new IngredientsDatas[]{IngredientsDatas.PAIN_SUEDOIS,IngredientsDatas.RIZ,IngredientsDatas.POULET}),
-    FAJITAS_VIANDE(11, new IngredientsDatas[]{IngredientsDatas.PAIN_SUEDOIS,IngredientsDatas.RIZ,IngredientsDatas.VIANDE});
+    FAJITAS_VIANDE(11, new IngredientsDatas[]{IngredientsDatas.PAIN_SUEDOIS,IngredientsDatas.RIZ,IngredientsDatas.VIANDE}),
+
+    CENTS_ANS(100, new IngredientsDatas[]{});
 
     private int price;
     private IngredientsDatas ingredients[];

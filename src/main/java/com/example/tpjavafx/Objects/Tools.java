@@ -10,35 +10,54 @@ import java.util.Random;
 import static com.example.tpjavafx.Objects.Util.listTable;
 
 public interface Tools {
-    static int getRandInt(int min, int max){
-        return new Random().nextInt((max - min)+1) +min;
+    static int getRandInt(int min, int max) {
+        return new Random().nextInt((max - min) + 1) + min;
     }
 
 
-    static void printNote(int table){
+    static void printNote(int table) {
         Table tmpTable = listTable.get(table);
         System.out.println("====== Reçu ======");
-        ArrayList<DishesDatas> tmpDishes = new ArrayList<>();
-        ArrayList<DrinksDatas> tmpDrinks = new ArrayList<>();
+        Facture facture = new Facture(tmpTable.getServedDishesList(), tmpTable.getServedDrinksList(), table);
 
-        int totalPrice =0;
+        int tmpPrice = 0;
+        int drinks100 = 0;
+        int dishes100 = 0;
+        for (DishesDatas dishesDatas : tmpTable.getServedDishesList()) {
+            tmpPrice = dishesDatas.getPrice();
+            if (dishesDatas == DishesDatas.CENTS_ANS) {
+                dishes100 = 7;
+                drinks100 = 7;
+            } else if (dishes100 > 0) {
+                tmpPrice = 0;
+                dishes100--;
+            }
+            String points = "";
+            for (int i = dishesDatas.toString().length(); i < 25; i++) {
+                points += ".";
+            }
+            System.out.println(dishesDatas.toString()+ points + tmpPrice + "€");
 
-        for(int i =0; i< tmpTable.getServedDishesList().size(); i++){
-            tmpDishes = tmpTable.getServedDishesList();
-            System.out.println(tmpDishes.get(i).toString() + ".........." + tmpDishes.get(i).getPrice());
-            totalPrice+= tmpDishes.get(i).getPrice();
         }
-        for(int i =0; i< tmpTable.getServedDrinksList().size(); i++){
-            tmpDrinks = tmpTable.getServedDrinksList();
-            System.out.println(tmpDrinks.get(i).toString() + ".........." + tmpDrinks.get(i).getPrice());
-            totalPrice+= tmpDrinks.get(i).getPrice();
+        for (DrinksDatas drinksDatas : tmpTable.getServedDrinksList()) {
+            tmpPrice = drinksDatas.getPrice();
+            if (drinks100 > 0) {
+                tmpPrice = 0;
+                drinks100--;
+            }
+            String points = "";
+
+            for (int i = drinksDatas.toString().length(); i < 25; i++) {
+                points += ".";
+            }
+            System.out.println(drinksDatas.toString()+ points + tmpPrice + "€");
         }
 
-        System.out.println("Total ............." + totalPrice);
+        System.out.println("Total...................." + facture.getTotal() + "€");
     }
 
-    static void displayStocks(){
-        for(IngredientsDatas ingredients:IngredientsDatas.values()){
+    static void displayStocks() {
+        for (IngredientsDatas ingredients : IngredientsDatas.values()) {
             System.out.println(ingredients.toString() + " : " + ingredients.getStocks());
         }
     }

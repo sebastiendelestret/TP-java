@@ -23,7 +23,6 @@ import java.util.ResourceBundle;
 public class CommandController implements Stageable, Initializable, Tools {
 
     private Stage stage;
-
     private int chosenTable;
 
     @FXML
@@ -77,18 +76,8 @@ public class CommandController implements Stageable, Initializable, Tools {
     @FXML
     private void menuCentAnsAction(){
         System.out.println("commande menu 100ans");
-        int price = 0;
-        for(int i = listTable.get(chosenTable).getDishesList().size(); i >= listTable.get(chosenTable).getDishesList().size()-7;i--) {
-            if(listTable.get(chosenTable).getDishesList().get(i) != null) {
-                System.out.print(listTable.get(chosenTable).getDishesList().get(i));
-                price += listTable.get(chosenTable).getDishesList().get(i).getPrice();
-            }
-        }
-        for(int i = listTable.get(chosenTable).getDrinkList().size()+1; i < listTable.get(chosenTable).getDrinkList().size()+7;i++) {
+        listTable.get(chosenTable).addDishes(DishesDatas.CENTS_ANS);
 
-        }
-
-        System.out.println(price);
     }
 
     @FXML

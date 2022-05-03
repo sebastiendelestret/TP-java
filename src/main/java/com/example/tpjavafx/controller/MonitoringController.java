@@ -124,7 +124,6 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
     private void refreshEmployee() {
         tableEmployee.getItems().clear();
         for (Employe employe : listEmploye) {
-            System.out.println(employe.getName());
 
             listEmployeeObservable.add(new employeeItem(employe));
         }
