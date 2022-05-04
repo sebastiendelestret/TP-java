@@ -71,6 +71,8 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
     private TableColumn<employeeItem, String> employeeFirstName;
     @FXML
     private TableColumn<employeeItem, String> employeePost;
+    @FXML
+    private TableColumn<employeeItem, Integer> employeeSoiree;
 
     public ObservableList<ingredientItem> listIngredient = FXCollections.observableArrayList();
 
@@ -159,7 +161,7 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
      */
     @FXML
     private void addEmployee(ActionEvent event) {
-        listEmploye.add(new Employe(inputName.getText(), inputFirstName.getText(), inputPost.getValue(), System.currentTimeMillis()));
+        listEmploye.add(new Employe(inputName.getText(), inputFirstName.getText(), inputPost.getValue(), 0));
         inputFirstName.setText("");
         inputName.setText("");
         refreshEmployee();
@@ -173,13 +175,14 @@ public class MonitoringController implements Stageable, Initializable, Tools, Sh
     private void refreshEmployee() {
         tableEmployee.getItems().clear();
         for (Employe employe : listEmploye) {
-
-            listEmployeeObservable.add(new employeeItem(employe));
+            if(employe.getNbSoirs()<=3)listEmployeeObservable.add(new employeeItem(employe));
         }
         employeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
         employeeFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         employeePost.setCellValueFactory(new PropertyValueFactory<>("post"));
+        employeeSoiree.setCellValueFactory(new PropertyValueFactory<>("nbSoirs"));
         tableEmployee.setItems(listEmployeeObservable);
+
     }
 
     /**

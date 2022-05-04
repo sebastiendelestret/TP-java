@@ -55,7 +55,6 @@ public class HelloController implements Stageable {
             stage.setScene(Main.getScenes().get(SceneName.COMMAND).getScene());
         } else {
             labelError.setText("Pas assez de personnel");
-            stage.setScene(Main.getScenes().get(SceneName.COMMAND).getScene());
 
 
         }
@@ -64,16 +63,21 @@ public class HelloController implements Stageable {
     @FXML
     public void lancerCuisine(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.CUISINE).getScene());
+
+
     }
+
 
     @FXML
     public void lancerBar(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.BAR).getScene());
+
     }
 
     @FXML
     public void lancerMonitoring(ActionEvent event) throws IOException {
         stage.setScene(Main.getScenes().get(SceneName.MONITORING).getScene());
+
     }
 
 

@@ -167,7 +167,7 @@ public class CommandController implements Stageable, Initializable, Tools {
                 }
             };
 
-            newItem = new MenuItem(drinks.toString());
+            newItem = new MenuItem(drinks.toString()+" "+ drinks.getPrice()+"€");
             newItem.setOnAction(eventClick);
             addDrinksList.getItems().add(newItem);
         }
@@ -192,7 +192,7 @@ public class CommandController implements Stageable, Initializable, Tools {
                     }
                 };
 
-                newItem = new MenuItem(dishes.toString());
+                newItem = new MenuItem(dishes.toString()+" "+dishes.getPrice()+"€");
                 newItem.setOnAction(eventClick);
                 if (!checkStocks(dishes)) {
                     newItem.setDisable(true);

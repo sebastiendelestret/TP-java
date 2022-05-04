@@ -26,6 +26,8 @@ public class employeeItem {
         return employee.getFirstname();
     }
 
+    public Integer getNbSoirs(){ return employee.getNbSoirs();}
+
     public Employe getEmployee() {
         return employee;
     }

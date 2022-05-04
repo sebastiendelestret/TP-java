@@ -35,7 +35,7 @@
          </children>
       </Pane>
       <Label layoutX="270.0" layoutY="33.0" text="Monitoring" />
-      <Pane fx:id="stocksPane" layoutX="93.0" layoutY="77.0" prefHeight="305.0" prefWidth="476.0">
+      <Pane fx:id="stocksPane" layoutX="93.0" layoutY="77.0" prefHeight="305.0" prefWidth="476.0" visible="false">
          <children>
             <TableView fx:id="tableIngredients" layoutY="6.0" prefHeight="254.0" prefWidth="408.0">
               <columns>
@@ -50,22 +50,23 @@
          </children>
       </Pane>
       <Button layoutX="14.0" layoutY="29.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
-      <Pane fx:id="employeePane" layoutX="103.0" layoutY="87.0" prefHeight="305.0" prefWidth="476.0" visible="false">
+      <Pane fx:id="employeePane" layoutX="34.0" layoutY="87.0" prefHeight="305.0" prefWidth="545.0" visible="false">
          <children>
-            <TableView fx:id="tableEmployee" layoutX="14.0" layoutY="14.0" prefHeight="235.0" prefWidth="351.0">
+            <TableView fx:id="tableEmployee" layoutX="14.0" layoutY="14.0" prefHeight="235.0" prefWidth="408.0">
               <columns>
                 <TableColumn fx:id="employeeName" prefWidth="121.0" text="Nom" />
                 <TableColumn fx:id="employeeFirstName" prefWidth="94.0" text="Prénom" />
-                  <TableColumn fx:id="employeePost" minWidth="0.0" prefWidth="107.0" text="Post" />
+                  <TableColumn fx:id="employeeSoiree" minWidth="0.0" prefWidth="62.0" text="Soirées" />
+                  <TableColumn fx:id="employeePost" minWidth="0.0" prefWidth="107.0" text="Poste" />
               </columns>
             </TableView>
-            <Button layoutX="365.0" layoutY="224.0" mnemonicParsing="false" onAction="#refreshEmployee" prefHeight="25.0" prefWidth="70.0" text="refresh" />
+            <Button layoutX="422.0" layoutY="224.0" mnemonicParsing="false" onAction="#refreshEmployee" prefHeight="25.0" prefWidth="70.0" text="refresh" />
             <TextField fx:id="inputName" layoutX="14.0" layoutY="249.0" prefHeight="25.0" prefWidth="120.0" />
             <TextField fx:id="inputFirstName" layoutX="134.0" layoutY="249.0" prefHeight="25.0" prefWidth="95.0" />
-            <Button layoutX="365.0" layoutY="249.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="25.0" prefWidth="70.0" text="ajouter" />
+            <Button layoutX="422.0" layoutY="249.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="25.0" prefWidth="70.0" text="ajouter" />
             <ChoiceBox fx:id="inputPost" layoutX="229.0" layoutY="249.0" prefHeight="25.0" prefWidth="95.0" />
-            <Button layoutX="365.0" layoutY="199.0" mnemonicParsing="false" onAction="#validerPosts" prefHeight="25.0" prefWidth="70.0" text="Valider" />
-            <Button layoutX="365.0" layoutY="174.0" mnemonicParsing="false" onAction="#supprimer" text="supprimer" />
+            <Button layoutX="422.0" layoutY="199.0" mnemonicParsing="false" onAction="#validerPosts" prefHeight="25.0" prefWidth="70.0" text="Valider" />
+            <Button layoutX="422.0" layoutY="174.0" mnemonicParsing="false" onAction="#supprimer" text="supprimer" />
          </children></Pane>
    </children>
 </AnchorPane>

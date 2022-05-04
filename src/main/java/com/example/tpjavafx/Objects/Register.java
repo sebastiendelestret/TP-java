@@ -29,11 +29,13 @@ public class Register {
             }
             out.writeObject(stocks);
 
-            ArrayList<Pair<String, String>> Employees = new ArrayList<>();
+            out.writeInt(listEmploye.size());
             for (Employe employe : listEmploye) {
-                Employees.add(new Pair<>(employe.getName(), employe.getFirstname()));
+                out.writeUTF(employe.getName());
+                out.writeUTF(employe.getFirstname());
+                if(employe.getNbSoirs()==3)out.writeInt(0);
+                else out.writeInt(employe.getNbSoirs());
             }
-            out.writeObject(Employees);
 
 
             System.out.println("File registered");
@@ -51,9 +53,10 @@ public class Register {
             for (int i = 0; i < stocks.size(); i++) {
                 IngredientsDatas.values()[i].setStocks(stocks.get(i));
             }
-            ArrayList<Pair<String, String>> Employees = (ArrayList<Pair<String, String>>) in.readObject();
-            for (Pair<String, String> employee : Employees) {
-                listEmploye.add(new Employe(employee.getKey(), employee.getValue(), "", System.currentTimeMillis()));
+
+            int size = in.readInt();
+            for (int i=0; i<size; i++) {
+                listEmploye.add(new Employe(in.readUTF(), in.readUTF()," ", in.readInt() ));
             }
             System.out.println("File read");
 
